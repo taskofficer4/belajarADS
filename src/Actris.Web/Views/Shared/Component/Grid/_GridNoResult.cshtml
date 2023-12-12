@@ -1,0 +1,11 @@
+﻿@using Actris.Abstraction.Model.View
+@model GridListModel
+
+
+@if (Model.FilterList.TotalItems == 0)
+{
+    <div class="text-center pt-1">
+        <img src="~/Assets/Grid/empty-grid.jpg" style="width:250px;margin-top:20px" />
+        <div class="text-muted mt-2">No Result were found</div>
+    </div>
+}

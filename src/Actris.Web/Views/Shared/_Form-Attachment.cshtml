@@ -1,0 +1,118 @@
+﻿@using System;
+@using Actris.Abstraction.Helper;
+@using System.Collections.Generic;
+
+@model List<Actris.Abstraction.Model.Dto.FileAttachmentDto>
+
+@{
+   int countInfo = 0;
+   string projectPhase = ViewBag.ProjectPhase;
+   string documentType = ViewBag.DocumentType;
+   if (Model != null)
+   {
+      countInfo = Model.Count();
+   }
+
+   var errorField = ViewData.ModelState.Values.FirstOrDefault(o => o.Errors.Any());
+   var errMsg = "";
+   if (errorField != null)
+   {
+      errMsg = errorField.Errors.FirstOrDefault()?.ErrorMessage;
+   }
+
+   var infoFileRequirement = "File format : PDF, XLS, XLSX, DOCX, PPT, PPTX, JPG, PNG, BMP\n"+
+                         "Max File Size : 5 MB";
+}
+
+<div class="card mb-3">
+   <div class="card-header fw-bold">
+      <h5 class="mb-0"> <i class="fa-solid fa-paperclip me-1"></i>  Attachments (@countInfo)</h5>
+
+   </div>
+   <div class="card-body attachment-section">
+      <div class="row mb-3">
+         <label class="col-sm-3 col-form-label">
+            File Upload
+            <i class="fa-solid fa-circle-info ms-2 cursor-pointer" title="@infoFileRequirement"></i>
+         </label>
+         <div class="col-sm-9">
+            <input type="file" class="form-control file-attachment-input" onchange="onFileChoose(this)" />
+
+
+            @if (ViewBag.FromActionUpload != null)
+            {
+               <div class="field-validation-error">@errMsg</div>
+            }
+         </div>
+      </div>
+
+      <div class="row mb-3">
+         <label class="col-sm-3 col-form-label">Description</label>
+         <div class="col-sm-9">
+            <input type="text" class="form-control file-attachment-description" placeholder="File Description" />
+         </div>
+      </div>
+      <div class="row mb-3">
+         <label class="col-sm-3"></label>
+         <div class="col-sm-9">
+            <button class="btn btn-secondary btn-add-attachment position-relative" type="button" disabled onclick="uploadFile(this,'@projectPhase','@documentType')"><i class="fa-solid fa-upload me-2"></i> Add Attachment</button>
+         </div>
+      </div>
+      <div class="card overflow-hidden">
+         <table class="table m-0">
+            <tr>
+               <th>File Name</th>
+               <th style="width:41%">Description</th>
+               <th style="width:115px">Size</th>
+               <th style="width:56px"></th>
+            </tr>
+
+            @for (var i = 0; i < Model?.Count(); i++)
+            {
+               var item = Model[i];
+
+               <tr class="attachment-row"
+                   FilePath="@item.FilePath"
+                   FileName="@item.FileName"
+                   CreatedBy="@item.CreatedBy"
+                   FileSize="@item.FileSize"
+                   FileDescription="@item.FileDescription"
+                   ProjectPhase="@item.ProjectPhase"
+                   FileUrl="@item.FileUrl">
+                  <td>
+                     <input type="hidden" propertyName="FilePath" name="Attachments[@i].FilePath" value="@item.FilePath" />
+                     <input type="hidden" propertyName="FileName" name="Attachments[@i].FileName" value="@item.FileName" />
+                     <input type="hidden" propertyName="ProjectPhase" name="Attachments[@i].ProjectPhase" value="@item.ProjectPhase" />
+                     <input type="hidden" propertyName="FileDescription" name="Attachments[@i].FileDescription" value="@item.FileDescription" />
+                     <input type="hidden" propertyName="FileUrl" name="Attachments[@i].FileUrl" value="@item.FileUrl" />
+                     <input type="hidden" propertyName="CreatedBy" name="Attachments[@i].CreatedBy" value="@item.CreatedBy" />
+                     <input type="hidden" propertyName="FileSize" name="Attachments[@i].FileSize" value="@item.FileSize" />
+
+                     <a class="link-primary" href="@item.FileUrl" target="_blank">
+                        @item.FileName
+                     </a>
+                  </td>
+                  <td >
+                     @if (string.IsNullOrEmpty(item.FileDescription))
+                     {
+                        <span>-</span>
+                     }
+                     else
+                     {
+                        <span>@item.FileDescription</span>
+                     }
+                  </td>
+                  <td>@(item.FileSize?.ToPrettySize())</td>
+                  <td class="text-end"><button type="button" title="Remove" class="btn btn-flat btn-sm text-danger" onclick="removeAttachment(this)"><i class="fa-solid fa-trash-can"></i></button></td>
+               </tr>
+            }
+
+         </table>
+
+         @if (countInfo == 0)
+         {
+            <div class="text-center py-5 text-muted">No Attachments Added</div>
+         }
+      </div>
+   </div>
+</div>

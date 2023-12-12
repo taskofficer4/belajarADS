@@ -1,0 +1,116 @@
+﻿@using Actris.Web.Extensions
+@model List<Actris.Abstraction.Model.Dto.TxCaDto>
+
+
+<div class="accordion" id="sectionCaList">
+
+   <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            List Action (@Model.Count())
+         </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#sectionCaList">
+         <div class="accordion-body">
+            @if (Model.Any() == false)
+            {
+               <div class="text-center pt-4 pb-4 cursor-pointer" title="Add Corrective Action" onclick="showCreateCaForm()">
+                  <div><i class="fa-solid fa-circle-plus fs-1" style="color:#ddd"></i></div>
+                  <div class="text-muted mt-2">Add Corrective Action</div>
+               </div>
+            }
+            else
+            {
+               <div class="mb-3">
+                  <button type="button" class="btn btn-secondary" onclick="showCreateCaForm()"><i class="fa-solid fa-plus me-2"></i>Add Action</button>
+               </div>
+
+
+               <div class="card">
+                  <table id="CaListTable" class="table table-hover m-0">
+                     <thead>
+                        <tr>
+                           <th class="valign-mid">CA ID</th>
+                           <th class="valign-mid">Department</th>
+                           <th class="valign-mid">Recomendation</th>
+                           <th class="valign-mid">PIC</th>
+                           <th class="valign-mid">Priority Level</th>
+                           <th class="valign-mid">Pending Action</th>
+                           <th class="valign-mid">Status</th>
+                        </tr>
+                     </thead>
+
+
+                     @{
+                        int i = 0;
+                     }
+                     @foreach (var ca in Model)
+                     {
+
+                        <tr>
+                           <td>
+                              <input name="CaList[@i].Index" type="hidden" value="@ca.Index" />
+                              <input name="CaList[@i].CorrectiveActionID" type="hidden" value="@ca.CorrectiveActionID" />
+                              <input name="CaList[@i].ResponsibleManager" type="hidden" value="@ca.ResponsibleManager" />
+                              <input name="CaList[@i].Recomendation" type="hidden" value="@ca.Recomendation" />
+                              <input name="CaList[@i].DueDate" type="hidden" value="@ca.DueDate" />
+                              <input name="CaList[@i].Pic1" type="hidden" value="@ca.Pic1" />
+                              <input name="CaList[@i].Pic1EmpName" type="hidden" value="@ca.Pic1EmpName" />
+                              <input name="CaList[@i].Pic2" type="hidden" value="@ca.Pic2" />
+                              <input name="CaList[@i].Pic2EmpName" type="hidden" value="@ca.Pic2EmpName" />
+                              <input name="CaList[@i].CorrectiveActionPriority" type="hidden" value="@ca.CorrectiveActionPriority" />
+                              <input name="CaList[@i].PendingAction" type="hidden" value="@ca.PendingAction" />
+                              <input name="CaList[@i].Status" type="hidden" value="@ca.Status" />
+                              @{
+                                 var attachmentIndex = 0;
+                              }
+                              @foreach (var attachment in ca.Attachments)
+                              {
+                                 <input name="CaList[@i].Attachments[@attachmentIndex].FilePath" type="hidden" value="@attachment.FilePath" />
+                                 <input name="CaList[@i].Attachments[@attachmentIndex].ProjectPhase" type="hidden" value="@attachment.ProjectPhase" />
+                                 <input name="CaList[@i].Attachments[@attachmentIndex].DocumentType" type="hidden" value="@attachment.DocumentType" />
+                                 <input name="CaList[@i].Attachments[@attachmentIndex].FileDescription" type="hidden" value="@attachment.FileDescription" />
+                                 <input name="CaList[@i].Attachments[@attachmentIndex].FilePath" type="hidden" value="@attachment.FilePath" />
+                                 <input name="CaList[@i].Attachments[@attachmentIndex].FileName" type="hidden" value="@attachment.FileName" />
+                                 <input name="CaList[@i].Attachments[@attachmentIndex].FileUrl" type="hidden" value="@attachment.FileUrl" />
+                                 <input name="CaList[@i].Attachments[@attachmentIndex].CreatedBy" type="hidden" value="@attachment.CreatedBy" />
+                                 <input name="CaList[@i].Attachments[@attachmentIndex].FileSize" type="hidden" value="@attachment.FileSize" />
+                                 {
+                                    attachmentIndex++;
+                                 }
+                              }
+
+                              <div class="d-flex align-items-center justify-content-between w-100">
+                                 @ca.CorrectiveActionID
+                                 <div class="dropdown" style="margin-top: -8px; margin-bottom: -8px;">
+                                    <button class="btn btn-flat btn-icon btn-rounded" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Action" style="height:35px;">
+                                       <i class="fa-solid fa-ellipsis-v "></i>
+                                    </button>
+                                    <ul class="dropdown-menu" data-boundary="window">
+                                       <li><span class="dropdown-item pe-2 cursor-pointer" onclick="showCaForm(false,this)"><i class=" fa fa-solid fa-eye"></i> View</span></li>
+                                       <li><span class="dropdown-item pe-2 cursor-pointer" onclick="showCaForm(true,this)"><i class=" fa fa-solid fa-pencil"></i> Edit</span></li>
+                                       <li><span class="dropdown-item pe-2 cursor-pointer" onclick="deleteCaRow(@i)"> <i class="fa fa-regular fa-trash-can text-danger"></i> Delete</span></li>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </td>
+                           <td>@ca.ResponsibleDepartment</td>
+                           <td>@ca.Recomendation</td>
+                           <td>@ca.DisplayPic</td>
+                           <td>@ca.CorrectiveActionPriority</td>
+                           <td></td>
+                           <td>@ca.Status</td>
+                           @{
+                              i++;
+                           }
+                        </tr>
+                     }
+                  </table>
+               </div>
+
+            }
+         </div>
+      </div>
+   </div>
+
+</div>

@@ -1,0 +1,121 @@
+﻿@using Actris.Abstraction.Model.View;
+@model IEnumerable<Field>
+
+@foreach (var field in Model)
+{
+    if (field.FieldType == FieldType.Hidden)
+    {
+        <input type="hidden" id="@field.Id" name="@field.Id" value="@field.Value" />
+    }
+    else
+    {
+        var errorClass = "";
+        if (field.HasError)
+        {
+            errorClass = "input-validation-error";
+        }
+
+        var requiredClass = "";
+        if (field.IsRequired)
+        {
+            requiredClass = "is-required";
+        }
+
+        <div class="mb-3">
+
+            @if (field.Label != null)
+            {
+                if (field.FieldType == FieldType.Radio)
+                {
+                    <label class="form-label @requiredClass" for="@field.Id">
+                        @field.Label <span class="text-muted fw-normal"> (select on of options)</span>
+                    </label>
+                }
+                else if (field.FieldType != FieldType.Switch)
+                {
+                    <label class="form-label @requiredClass" for="@field.Id">
+                        @field.Label
+                    </label>
+                }
+            }
+
+
+
+            @if (field.FieldType == FieldType.Text)
+            {
+                var readOnlyInput = "";
+                if (field.IsReadOnly)
+                {
+                    readOnlyInput = "readonly";
+                }
+                <input class="form-control text-box single-line @errorClass" id="@field.Id" name="@field.Id" type="text" value="@field.Value" placeholder="@field.Label" @readOnlyInput>
+            }
+            else if (field.FieldType == FieldType.TextArea)
+            {
+                <textarea class="form-control  @errorClass" id="@field.Id" name="@field.Id" rows="3">@field.Value</textarea>
+
+            }
+            else if (field.FieldType == FieldType.Number)
+            {
+                <input class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" type="number" value="@field.Value" placeholder="@field.Label">
+            }
+            else if (field.FieldType == FieldType.Email)
+            {
+                <input class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" type="email" value="@field.Value" placeholder="@field.Label">
+            }
+            else if (field.FieldType == FieldType.Phone)
+            {
+                <input class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" type="tel" value="@field.Value" placeholder="@field.Label">
+            }
+            else if (field.FieldType == FieldType.Date)
+            {
+                <input class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" type="date" value="@field.Value">
+            }
+            else if (field.FieldType == FieldType.DateTime)
+            {
+                <input class="form-control text-box single-line  @errorClass" id="@field.Id" name="@field.Id" type="datetime" value="@field.Value">
+            }
+
+            else if (field.FieldType == FieldType.Dropdown)
+            {
+                @Html.Partial("Component/Form/_Field-Dropdown", field)
+            }
+            else if (field.FieldType == FieldType.Switch)
+            {
+                @Html.Partial("Component/Form/_Field-Switch", field)
+            }
+            else if (field.FieldType == FieldType.Radio)
+            {
+                @Html.Partial("Component/Form/_Field-Radio", field)
+            }
+            else if (field.FieldType == FieldType.MultiCheckbox)
+            {
+                @Html.Partial("Component/Form/_Field-MultiCheckbox", field)
+
+            }
+            else if (field.FieldType == FieldType.Lookup)
+            {
+                <input class="select-lookup id" id="@field.Id" name="@field.Id" type="hidden" value="@field.Value">
+                if (field.Value == null)
+                {
+                    <input class="form-select select-lookup  @errorClass" style="cursor:pointer" onclick="showLookupModal(this, '@field.LookUpController', '@field.LookUpOrderBy')" readonly type="text" value="@field.Value" placeholder="@field.Label">
+                }
+                else
+                {
+                    Html.RenderAction("GetLookupText", field.LookUpController, field);
+                }
+
+            }
+            else if (field.FieldType == FieldType.Grid)
+            {
+                @Html.Partial("Component/Form/_Field-Grid", field)
+            }
+            @if (field.HasError)
+            {
+                <div class="field-validation-error">
+                    @field.ErrorMessage
+                </div>
+            }
+        </div>
+    }
+}

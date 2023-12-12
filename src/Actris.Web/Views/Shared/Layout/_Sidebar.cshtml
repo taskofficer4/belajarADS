@@ -1,0 +1,20 @@
+﻿<div class="mobile-menu-overlay"></div>
+<div class="sidebar-container">
+
+    
+    <div class="nav-header-mobile">
+        <a href="#" class="btn btn-menu toggle-main-menu" title="Menu">
+            <i class="fa-solid fa-bars"></i>
+        </a>
+        <a href="#" class="btn btn-menu toggle-main-menu-mobile" title="Close Menu">
+            <i class="fa-solid fa-xmark"></i>
+        </a>
+        <a href="@Url.Action("Index", "Home", new { Area=""})" >
+            <img src="~/Assets/PHE_Horizontal_Warna.png" />
+        </a>
+        
+    </div>
+    <nav>
+        @{Html.RenderAction("UserMenu", "Account", new { Area = "" });}
+    </nav>
+</div>

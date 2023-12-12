@@ -1,0 +1,98 @@
+﻿$width-collapse: 62px;
+$mobile-screen: 768px;
+$transition-slidemenu: all 0.1s ease-out;
+
+@media screen and (min-width: $mobile-screen + 1px) {
+    .sidebar-container {
+        transition: $transition-slidemenu;
+        overflow: hidden;
+    }
+
+    .sidebar-collapse-desktop {
+
+        .sidebar-container {
+            width: $width-collapse;
+
+
+            .nav-header-mobile {
+                img {
+                    display: none;
+                }
+            }
+        }
+
+        .layout-icon-color {
+            color: var(--main-layout-icon-color-collapsed) !important;
+        }
+
+        .navigation span {
+            display: none;
+        }
+
+        nav {
+            background-color: var(--main-layout-color);
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        nav .navigation li > .has-ul:after {
+            display: none;
+        }
+
+        main {
+            margin-left: $width-collapse;
+        }
+
+        header > .left-side {
+            width: $width-collapse;
+        }
+
+        header > .left-side img {
+            display: none;
+        }
+
+        nav .navigation > li ul {
+            display: block !important;
+        }
+
+        header > .right-side {
+            padding-left: $width-collapse + 15px;
+
+            img {
+                display: block;
+                margin-right: 25px;
+            }
+
+            .vr {
+                display: inline-block;
+                margin-right: 25px;
+            }
+        }
+
+        li.has-sub > a {
+            display: none;
+        }
+
+        nav .navigation > li ul li a {
+            padding-left: 8px
+        }
+
+        .navigation {
+            > li {
+                > ul li {
+                    &.active > a {
+                        border-left: solid 4px var(--main-layout-icon-color-collapsed);
+                    }
+                }
+            }
+        }
+    }
+
+    .mobile-menu {
+        display: none;
+    }
+
+    .toggle-main-menu-mobile {
+        display: none;
+    }
+}

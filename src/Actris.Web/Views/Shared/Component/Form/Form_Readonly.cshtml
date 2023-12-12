@@ -1,0 +1,62 @@
+﻿@using Actris.Abstraction.Model.View;
+@model FormDefinition
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">@Model.State @Model.Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+    <div class="modal-body">
+        <div>
+
+            @{ 
+                var formSectionIdx = 0;
+            }
+            @foreach (var fieldSection in Model.FieldSections)
+            {
+                formSectionIdx++;
+
+                if (string.IsNullOrEmpty(fieldSection.SectionName))
+                {
+                    <div class="mb-3">
+                        @Html.Partial("Component/Form/_Fields_Readonly", fieldSection.Fields)
+                    </div>
+                }
+                else
+                {
+                    <div class="accordion mb-3">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#formSection_@formSectionIdx">
+                                    @fieldSection.SectionName
+                                </button>
+                            </h2>
+                            <div id="formSection_@formSectionIdx" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    @Html.Partial("Component/Form/_Fields_Readonly", fieldSection.Fields)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            }
+
+
+         
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+
+    </div>
+
+</div>
+
+
+
+
+

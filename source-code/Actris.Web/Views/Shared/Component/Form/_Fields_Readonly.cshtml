@@ -1,0 +1,104 @@
+﻿@using Actris.Abstraction.Model.View;
+@model IEnumerable<Field>
+
+@foreach (var field in Model.Where(o => o.FieldType != FieldType.Hidden))
+{
+    <div class="mb-3">
+        @if (field.Label != null)
+        {
+
+            <label class="form-label" for="@field.Id">@field.Label</label>
+        }
+
+
+        @if (field.FieldType == FieldType.Dropdown)
+        {
+            <select class="form-select" id="@field.Id" name="@field.Id" disabled>
+                @foreach (var item in field.LookUpList.Items)
+                {
+                    if (item.Value == field.Value?.ToString())
+                    {
+                        <option value="@item.Value" selected>@item.Text</option>
+                    }
+                }
+            </select>
+        }
+        else if (field.FieldType == FieldType.Switch)
+        {
+            string switchChecked = "";
+            if (field.Value != null && (bool)field.Value == true)
+            {
+                switchChecked = "checked";
+            }
+
+
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="@field.Id" id="@field.Id" value="true" @switchChecked disabled>
+                <input type="hidden" value="false" name="@field.Id" />
+                <label class="form-check-label" for="@field.Id">@field.Label</label>
+            </div>
+        }
+        else if (field.FieldType == FieldType.Radio)
+        {
+            <div class="vstack gap-1">
+                @{
+                    var radioIdx = 0;
+
+                }
+                @foreach (var item in field.LookUpList.Items)
+                {
+                    string checkedAttr = "";
+                    if (item.Value == field.Value?.ToString())
+                    {
+                        checkedAttr = "checked";
+                    }
+
+                    var radioValueId = $"{field.Id}_{radioIdx++}";
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="@field.Id" id="@radioValueId" value="@item.Value" @checkedAttr disabled>
+                        <div class="radio-2line">
+                            <label class="form-check-label" for="@radioValueId">@item.Text</label>
+                            <label class="radio-description" for="@radioValueId">
+                                @item.Description
+                            </label>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+        }
+        else if (field.FieldType == FieldType.Lookup)
+        {
+            if (field.Value == null)
+            {
+                <input class="form-select select-lookup" readonly type="text" value="@field.Value" placeholder="@field.Label" disabled>
+            }
+            else
+            {
+                field.IsDisabled = true;
+                Html.RenderAction("GetLookupText", field.LookUpController, field);
+            }
+
+        }
+        else if (field.FieldType == FieldType.MultiCheckbox)
+        {
+            field.IsDisabled = true;
+            @Html.Partial("Component/Form/_Field-MultiCheckbox", field)
+        }
+        else if (field.FieldType == FieldType.Grid)
+        {
+            field.IsDisabled = true;
+            @Html.Partial("Component/Form/_Field-Grid", field);
+        }
+        else
+        {
+            <input disabled class="form-control" type="text" value="@field.Value">
+        }
+
+
+
+    </div>
+
+
+}

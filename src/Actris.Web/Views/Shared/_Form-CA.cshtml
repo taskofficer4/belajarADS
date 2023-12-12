@@ -1,0 +1,181 @@
+﻿@using Actris.Web.Extensions
+@using Actris.Abstraction.Model.View;
+
+@using Actris.Abstraction.Enum;
+@model Actris.Abstraction.Model.Dto.TxCaDto
+
+
+@{
+
+   var disabledInput = "";
+   var viewOnly = false;
+
+   if (Model.State == FormState.View
+     || Model.State == FormState.NeedAction
+     || Model.State == FormState.NeedApproval
+     || Model.State == FormState.Overdue)
+   {
+         disabledInput = "disabled";
+         viewOnly = true;
+      }
+   }
+
+<fieldset @disabledInput>
+   @Html.HiddenFor(o => o.Index)
+   <div class="row mb-3">
+      <label class="col-sm-3  col-form-label ">CA ID</label>
+      <div class="col-sm-9">
+         @Html.TextBoxFor(o => o.CorrectiveActionID, new { @class = "form-control", placeholder = "Will be generated after submission", @readonly = "true" })
+      </div>
+   </div>
+   <div class="row mb-3">
+      <label class="col-sm-3  col-form-label is-required ">Reference ID</label>
+      <div class="col-sm-9">
+         @Html.TextBoxFor(o => o.ActionTrackingID, new { id = "caRefId", @class = "form-control", placeholder = "Will be generated after submission", @readonly = "true", })
+      </div>
+   </div>
+
+   <div class="row mb-3">
+      <label class="col-sm-3  col-form-label is-required">Recomendation</label>
+      <div class="col-sm-9">
+         @Html.TextAreaFor(model => model.Recomendation, new
+                    {
+                        rows = "4",
+                        placeholder = "Recomendation",
+                        @class = "form-control",
+                        maxLength = "1000"
+                    })
+         <div class="d-flex justify-content-between">
+            @Html.ValidationMessageFor(model => model.Recomendation)
+            <div class="fs-small ms-auto text-muted" style="margin-top: 0.25rem; "><span id="Recomendation_counter">0</span>/1000</div>
+         </div>
+      </div>
+   </div>
+
+   <div class="row mb-3">
+      <div class="col-sm-3 pe-0">
+         <label class="col-form-label pt-0 is-required" style="font-size:15px;">Responsible Department </label>
+         <div class="fs-small" style="margin-top:-10px"> (Manager)</div>
+      </div>
+
+	  <div class="col-sm-9">
+		  @if (disabledInput != "")
+		  {
+			  @PageComponent.DropdownViewOnly(Model.ResponsibleManagerView)
+		  }
+		  else
+		  {
+			  @Html.DropDownListFor(model => model.ResponsibleManager,
+				   Model.Lookup.ResponsibleManager.ToSelectList(), "",
+				   new
+					  {
+					  @class = "form-select",
+					  onchange = "clearPic()",
+				  })
+			  @Html.ValidationMessageFor(model => model.ResponsibleManager)
+		  }
+
+	  </div>
+   </div>
+
+   <div class="row mb-3">
+      <label class="col-sm-3  col-form-label is-required">PIC 1</label>
+      <div class="col-sm-9">
+         @if (disabledInput != "")
+         {
+            @PageComponent.DropdownViewOnly(Model.Pic1EmpName)
+
+         }
+         else
+         {
+            @Html.DropDownListFor(model => model.Pic1, Model.Lookup.Pic1.ToSelectList(), "", new { @class = "form-select" })
+            @Html.ValidationMessageFor(model => model.Pic1)
+         }
+
+      </div>
+   </div>
+
+   <div class="row mb-3">
+      <label class="col-sm-3  col-form-label">PIC 2</label>
+      <div class="col-sm-9">
+         @if (disabledInput != "")
+         {
+            @PageComponent.DropdownViewOnly(Model.Pic2EmpName)
+         }
+         else
+         {
+            @Html.DropDownListFor(model => model.Pic2, Model.Lookup.Pic2.ToSelectList(), "", new { @class = "form-select" })
+            @Html.ValidationMessageFor(model => model.Pic2)
+         }
+
+      </div>
+   </div>
+</fieldset>
+
+
+<div class="row mb-3">
+   <label class="col-sm-3  col-form-label is-required">Priority Level</label>
+   <div class="col-sm-9">
+      @*khsusus view ga perlu di isi dropdown nya*@
+      @if (disabledInput != "")
+      {
+         @PageComponent.DropdownViewOnly(Model.CorrectiveActionPriority)
+      }
+      else
+      {
+         @Html.DropDownListFor(model => model.CorrectiveActionPriority,
+            Model.Lookup.CaPriority.ToSelectList(), "",
+            new
+                 {
+                     @class = "form-select init-select2",
+                     placeholder = "Select Priority Level"
+                  })
+      }
+      @Html.ValidationMessageFor(model => model.CorrectiveActionPriority)
+   </div>
+</div>
+
+
+<div class="row mb-3">
+   <label class="col-sm-3  col-form-label is-required">Due Date</label>
+   <div class="col-sm-9 ">
+      <div class="d-flex">
+         <fieldset @disabledInput>
+            <div class="input-group" style="max-width:253px">
+
+
+               @Html.TextBoxFor(o => o.DueDate, new
+                 {
+                     @class = "form-control init-datepicker",
+                     placeholder = "Due Date",
+                     data_date_start_date = "0d",
+                     data_date_today_btn = "linked",
+                     data_date_today_highlight = "true"
+                 })
+
+               <span class="input-group-text input-group-right"><i class="fa-regular fa-calendar"></i></span>
+
+            </div>
+         </fieldset>
+         @if (Model.State == FormState.NeedAction)
+         {
+            <button type="button" class="btn btn-outline-primary ms-3" onclick="showProposedDueDateModal()">Propose Due Date</button>
+         }
+
+      </div>
+      @Html.ValidationMessageFor(model => model.DueDate)
+   </div>
+</div>
+
+<div class="renderAttachment">
+   @{
+      Html.RenderAction("AttachmentSection", "Attachment", new
+      {
+         Area = "",
+         documentType = DocumentTypeEnum.CA,
+         projectPhase = ProjectPhaseEnum.Initiator,
+         attachmentList = Model.Attachments,
+         viewOnly = viewOnly
+      });
+   }
+</div>

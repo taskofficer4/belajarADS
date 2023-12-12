@@ -1,0 +1,56 @@
+﻿@using Actris.Web.Extensions
+@using Actris.Abstraction.Model.View;
+@model Actris.Abstraction.Model.Dto.TxCaDto
+@{
+   string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+   var formUrl = CurrentControllerName;
+   var modalTitle = $"Create New Action";
+   var disabledForm = "";
+   if (Model.State == FormState.Create)
+   {
+      formUrl = Url.Action("CreateCa", "ActionTracking");
+   }
+   else if (Model.State == FormState.View)
+   {
+      disabledForm = "disabled";
+      formUrl = Url.Action("CreateCa", "ActionTracking");
+      modalTitle = "View Action";
+   }
+   else
+   {
+      modalTitle = $"Edit Action";
+      formUrl = Url.Action("EditCa", "ActionTracking");
+   }
+}
+
+
+@*MODAL CA FORM *@
+<form class="modal-content" action="@formUrl" method="post" onsubmit="event.preventDefault()" form-state="@Model.State" autocomplete="off">
+
+   <div class="modal-header">
+      <h5 class="modal-title">@modalTitle </h5>
+      <div class="d-flex align-items-center">
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+   </div>
+   <div class="modal-body">
+      <fieldset @disabledForm>
+         @Html.Partial("_Form-CA")
+      </fieldset>
+       @Html.Partial("_PriorityLevelStatic")
+
+   </div>
+   <div class="modal-footer">
+      @if (Model.State == FormState.View)
+      {
+         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" style="width:90px">Close</button>
+      }
+      else
+      {
+         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" style="width:90px">Cancel</button>
+         <button type="submit" class="btn btn-primary btn-will-loading" style="width:90px">Save</button>
+      }
+   </div>
+   <div class="modal-block-overlay"></div>
+</form>

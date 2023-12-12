@@ -1,0 +1,37 @@
+﻿@using Actris.Abstraction.Model.Response
+@model User
+
+<header>
+   <div class="right-side no-sidebar">
+      <a href="@Url.Action("Index", "Home", new { Area=""})">
+         <img src="~/Assets/PHE_Horizontal_Warna.png" />
+      </a>
+      <div class="d-flex" style="height: 60%;">
+         <div class="vr" style="opacity: 1;"></div>
+      </div>
+      <div class="brand-name">
+         ACTRIS
+      </div>
+
+      @if (Model != null)
+      {
+         string role = Model.Roles?.FirstOrDefault()?.Value;
+         <div class="user-info">
+            <div class="user-fullname">
+               @Model.Name
+            </div>
+            <div class="user-id">
+               @if (Model.EmpId != null)
+               {
+                  <span>@Model.EmpId - </span>
+               }
+               @role
+            </div>
+         </div>
+         <div class="avatar">@Model.Name[0]</div>
+         <a href="@Url.Action("LogOff", "Account")" class="btn btn-logout" title="Logout">
+            <i class="fa-solid fa-arrow-right-from-bracket text-black"></i>
+         </a>
+      }
+   </div>
+</header>

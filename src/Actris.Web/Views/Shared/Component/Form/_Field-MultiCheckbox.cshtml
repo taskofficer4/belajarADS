@@ -1,0 +1,66 @@
+﻿@using Actris.Abstraction.Model.View;
+@model Field
+
+@{ 
+    var field = Model;
+    var i = 0;
+    var mid = field.LookUpList.Items.Count() / 2;
+
+    var firstColumn = field.LookUpList.Items.Take(mid + 1);
+    var secondColumn = field.LookUpList.Items.Skip(mid + 1);
+    var disableStr = "";
+
+    if (field.IsDisabled)
+    {
+        disableStr = "disabled";
+    }
+}
+
+
+<div class="row">
+    <div class="col">
+        @foreach (var item in firstColumn)
+        {
+            var idInput = $"{item.Value}_{i}";
+            var fieldName = field.Id;
+            i++;
+            var selectedStr = "";
+            if (item.Selected)
+            {
+                selectedStr = "checked";
+            }
+
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="@fieldName" value="@item.Value" id="@idInput" @selectedStr @disableStr>
+                <label class="form-check-label" for="@idInput">
+                    @item.Text
+                </label>
+            </div>
+        }
+    </div>
+
+    <div class="col">
+        @foreach (var item in secondColumn)
+        {
+            var idInput = $"{item.Value}_{i}";
+            var fieldName = field.Id;
+            i++;
+            var selectedStr = "";
+            if (item.Selected)
+            {
+                selectedStr = "checked";
+            }
+
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="@fieldName" value="@item.Value" id="@idInput" @selectedStr @disableStr>
+                <label class="form-check-label" for="@idInput">
+                    @item.Text
+                </label>
+            </div>
+
+        }
+    </div>
+
+</div>

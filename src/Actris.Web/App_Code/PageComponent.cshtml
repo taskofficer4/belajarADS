@@ -1,0 +1,37 @@
+﻿@helper TransactionHeader(string headerTitle, string transactionId = null, string statusName = null, string historyUrlLink = null)
+{
+   <div class="header-page d-flex align-items-center">
+      <div class="d-flex flex-column flex-md-row">
+         <div class="text-truncate">
+            @headerTitle
+         </div>
+         @if (transactionId != null)
+         {
+            <div class="header-page-small align-self-md-end">
+               @transactionId (@statusName)
+            </div>
+         }
+
+      </div>
+
+      @if (transactionId != null)
+      {
+         <a href="@historyUrlLink" class="ms-auto btn btn-primary flex-shrink-0 flex-grow-0">History Log</a>
+      }
+   </div>
+}
+
+@helper DropdownViewOnly(string text)
+{
+   <select class="form-select" disabled>
+      <option>@text</option>
+   </select>
+}
+
+@helper TextAreaCounter(string id)
+{
+
+   <div class="fs-small ms-auto text-muted" style="margin-top: 0.25rem; ">
+      <span class="text-area-counter" id="@(id)_counter">0</span>/1000
+   </div>
+}

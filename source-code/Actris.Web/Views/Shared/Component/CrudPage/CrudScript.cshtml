@@ -1,0 +1,21 @@
+﻿@model  Actris.Abstraction.Model.View.CrudPage
+@{
+    string currentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+}
+
+@Scripts.Render("~/bundles/crud")
+<script>
+    let crudParam = {
+        crudId: '@Model.Id',
+        gridId: '@Model.GridParam.GridId',
+        name: '@Model.Title',
+        controllerName: '@currentControllerName',
+        gridConfig: {
+            size:  @Model.GridParam.FilterList.Size,
+            orderBy : '@Model.GridParam.FilterList.OrderBy'
+        }
+    };
+
+    var crud = createCrud(crudParam);
+  
+</script>

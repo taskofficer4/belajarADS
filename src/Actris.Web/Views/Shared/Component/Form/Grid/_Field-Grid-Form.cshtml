@@ -1,0 +1,69 @@
+﻿@using Actris.Abstraction.Model.View;
+@model FormDefinition
+
+@{
+    string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    var formUrl = CurrentControllerName;
+    var modalTitle = $"Add New {Model.Title}";
+    if (Model.State == FormState.Create)
+    {
+        formUrl = CurrentControllerName + "/CreateChild";
+    }
+    else
+    {
+        modalTitle = $"Edit {Model.Title}";
+        formUrl = CurrentControllerName + "/EditChild";
+    }
+
+}
+
+
+<form class="modal-content modal-child-form" action="@formUrl" onsubmit="event.preventDefault()" form-state="@Model.State">
+
+    <div class="modal-header">
+        <h5 class="modal-title">@modalTitle </h5>
+        <button type="button" class="btn-close"  onclick="crud.hideChildForm()" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div>
+            @{
+                var formSectionIdx = 0;
+            }
+            @foreach (var fieldSection in Model.FieldSections)
+            {
+                formSectionIdx++;
+
+                if (string.IsNullOrEmpty(fieldSection.SectionName))
+                {
+                    <div class="mb-3">
+                        @Html.Partial("Component/Form/_Fields", fieldSection.Fields)
+                    </div>
+                }
+                else
+                {
+                    <div class="accordion mb-3">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#formSection_@formSectionIdx">
+                                    @fieldSection.SectionName
+                                </button>
+                            </h2>
+                            <div id="formSection_@formSectionIdx" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    @Html.Partial("Component/Form/_Fields", fieldSection.Fields)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            }
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" style="width:90px"  onclick="crud.hideChildForm()">Cancel</button>
+        <button type="submit" class="btn btn-primary" style="width:90px">Submit</button>
+    </div>
+    <div class="modal-block-overlay"></div>
+</form>

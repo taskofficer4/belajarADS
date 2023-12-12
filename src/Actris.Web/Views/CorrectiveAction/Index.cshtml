@@ -1,0 +1,104 @@
+﻿@using Actris.Web.Extensions
+@using Actris.Abstraction.Model.View;
+@model Actris.Abstraction.Model.Dto.TxCaDto
+
+@{
+   ViewBag.Title = "Corrective Action";
+   Layout = "~/Views/Shared/_LayoutNoSideBar.cshtml";
+}
+
+<div class="d-flex align-items-center justify-content-between">
+   <div class="header-page d-flex align-items-center" style="border:none">
+      <div class="d-flex flex-column flex-md-row">
+         <a href="@Url.Action("Index","NeedAction", new {Area="TaskList"})" class="btn btn-flat btn-lg me-2" style="margin-left:-20px" title="Back to Task List"><i class="fa-solid fa-arrow-left"></i></a>
+         <div class="text-truncate">@ViewBag.Title</div>
+      </div>
+   </div>
+   <div class="badge badge-primary fs-5 fw-bold">@Model.CorrectiveActionID</div>
+</div>
+
+@if (Model.State == FormState.Overdue)
+{
+   <div class="fw-bold text-danger" style="margin-top: -20px;margin-bottom: 25px;margin-left: 56px;">You have reached overdue, please submit reason for overdue</div>
+}
+
+
+<form id="mainForm" method="post" autocomplete="off">
+   <div class="mb-5">
+      @Html.AntiForgeryToken()
+      @Html.HiddenFor(o => o.IsSubmit)
+
+      @if (Model.State == FormState.NeedApproval || Model.State == FormState.Overdue)
+      {
+
+         @Html.HiddenFor(o => o.Remark)
+         @Html.HiddenFor(o => o.ApprovalAction)
+      }
+
+      @Html.Partial("_Form-Button")
+      @Html.Partial("_Form-ACT", Model.Act)
+      @Html.Partial("_Form")
+      @if (Model.State != FormState.Overdue)
+      {
+         @Html.Partial("_Form-NewAction")
+      }
+
+      @if (Model.State == FormState.NeedApproval && Model.Status == "Request for Overdue")
+      {
+         @Html.Partial("_Form-OverdueAsSection")
+      }
+
+      @Html.Partial("_PriorityLevelStatic")
+      @Html.Partial("_Form-Button")
+   </div>
+</form>
+@Html.Partial("_Modal-History")
+@if (Model.State == FormState.NeedAction)
+{
+   @Html.Partial("_Modal-ProposedDueDate")
+}
+else if (Model.State == FormState.NeedApproval)
+{
+   @Html.Partial("_Modal-ConfirmApproval")
+}
+else if (Model.State == FormState.Overdue)
+{
+   @Html.Partial("_Modal-Overdue")
+}
+
+
+@section scripts{
+
+   @if (Model.State == FormState.NeedAction)
+   {
+      <script src="~/Scripts/Page/CaFormNeedAction.js"></script>
+      <script src="~/Scripts/Page/ProposedDueDate.js"></script>
+   }
+   else if (Model.State == FormState.NeedApproval)
+   {
+      <script src="~/Scripts/Page/CaFormNeedApproval.js"></script>
+   }
+   else if (Model.State == FormState.Overdue)
+   {
+      <script src="~/Scripts/Page/CaFormOverdue.js"></script>
+   }
+
+
+   <script>
+      baseController = '@Url.Action("","CorrectiveAction")';
+
+
+      function scrollToPageInputError() {
+         var position = $('.input-validation-error').closest(".accordion-item").position();
+         $(document).scrollTop(position.top - 80);
+      }
+
+      $(document).ready(function () {
+         @if (!ViewData.ModelState.IsValid)
+         {
+               @:showToastError("Please check your input");
+               @:scrollToPageInputError();
+         }
+      });
+   </script>
+}

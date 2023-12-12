@@ -1,0 +1,1122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ActrisDb.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="LG_CorrectiveActionHistory">
+          <Key>
+            <PropertyRef Name="CorrectiveActionHistoryID" />
+          </Key>
+          <Property Name="CorrectiveActionHistoryID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CorrectiveActionID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Action" Type="varchar" MaxLength="100" />
+          <Property Name="ActionBy" Type="varchar" MaxLength="100" />
+          <Property Name="ActionDate" Type="datetime" />
+          <Property Name="NextAction" Type="varchar" MaxLength="100" />
+          <Property Name="NextActionBy" Type="varchar" MaxLength="255" />
+          <Property Name="Note" Type="varchar" MaxLength="2000" />
+          <Property Name="DataStatus" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="MD_ActionTrackingSource">
+          <Key>
+            <PropertyRef Name="Source" />
+            <PropertyRef Name="DirectorateID" />
+            <PropertyRef Name="DivisionID" />
+            <PropertyRef Name="SubDivisionID" />
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="Source" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SourceBahasa" Type="varchar" MaxLength="100" />
+          <Property Name="DataStatus" Type="varchar" MaxLength="20" />
+          <Property Name="DirectorateID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DirectorateDesc" Type="varchar" MaxLength="256" />
+          <Property Name="DivisionID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DivisionDesc" Type="varchar" MaxLength="256" />
+          <Property Name="SubDivisionID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubDivisionDesc" Type="varchar" MaxLength="256" />
+          <Property Name="DepartmentID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DepartmentDesc" Type="varchar" MaxLength="250" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MD_CorrectiveActionOverdueImpact">
+          <Key>
+            <PropertyRef Name="OverdueImpact" />
+          </Key>
+          <Property Name="OverdueImpact" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ImpactBahasa" Type="varchar" MaxLength="100" />
+          <Property Name="DataStatus" Type="varchar" MaxLength="20" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MD_CorrectiveActionPriority">
+          <Key>
+            <PropertyRef Name="Priority" />
+          </Key>
+          <Property Name="Priority" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PriorityBahasa" Type="varchar" MaxLength="100" />
+          <Property Name="PriorityDuration" Type="int" />
+          <Property Name="DataStatus" Type="varchar" MaxLength="20" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TX_ActionTracking">
+          <Key>
+            <PropertyRef Name="ActionTrackingID" />
+          </Key>
+          <Property Name="ActionTrackingID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ActionTrackingReference" Type="varchar" MaxLength="100" />
+          <Property Name="ObservationID" Type="varchar" MaxLength="20" />
+          <Property Name="LocationStatusID" Type="varchar" MaxLength="20" />
+          <Property Name="ActionTrackingSource" Type="varchar" MaxLength="100" />
+          <Property Name="SourceDirectorateID" Type="varchar" MaxLength="10" />
+          <Property Name="SourceDivisionID" Type="varchar" MaxLength="10" />
+          <Property Name="SourceSubDivisionID" Type="varchar" MaxLength="10" />
+          <Property Name="SourceDepartmentID" Type="varchar" MaxLength="10" />
+          <Property Name="IssueDate" Type="date" />
+          <Property Name="FindingDesc" Type="varchar" MaxLength="4000" />
+          <Property Name="LocationID" Type="varchar" MaxLength="100" />
+          <Property Name="Location" Type="varchar" MaxLength="100" />
+          <Property Name="SubLocation" Type="varchar" MaxLength="255" />
+          <Property Name="Nct" Type="varchar" MaxLength="4000" />
+          <Property Name="Rca" Type="varchar" MaxLength="4000" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="DataStatus" Type="varchar" MaxLength="20" />
+          <Property Name="AdditionalData" Type="varchar" MaxLength="2000" />
+          <Property Name="TypeShuRegion" Type="varchar" MaxLength="150" />
+          <Property Name="DirectorateRegionalID" Type="varchar" MaxLength="150" />
+          <Property Name="DirectorateRegionalDesc" Type="varchar" MaxLength="550" />
+          <Property Name="DivisiZonaID" Type="varchar" MaxLength="150" />
+          <Property Name="DivisiZonaDesc" Type="varchar" MaxLength="250" />
+          <Property Name="CompanyCode" Type="varchar" MaxLength="50" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="250" />
+          <Property Name="WilayahkerjaID" Type="varchar" MaxLength="150" />
+          <Property Name="WilayahkerjaDesc" Type="varchar" MaxLength="250" />
+          <Property Name="IsConfidential" Type="bit" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TX_CorrectiveAction">
+          <Key>
+            <PropertyRef Name="CorrectiveActionID" />
+          </Key>
+          <Property Name="CorrectiveActionID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ActionTrackingID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CorrectiveActionPriority" Type="varchar" MaxLength="100" />
+          <Property Name="ResponsibleDivision" Type="varchar" MaxLength="255" />
+          <Property Name="ResponsibleDivisionID" Type="varchar" MaxLength="100" />
+          <Property Name="ResponsibleDepartment" Type="varchar" MaxLength="255" />
+          <Property Name="ResponsibleDepartmentID" Type="varchar" MaxLength="50" />
+          <Property Name="ResponsibleManager" Type="varchar" MaxLength="100" />
+          <Property Name="ResponsibleManagerApprover" Type="varchar" MaxLength="200" />
+          <Property Name="ResponsibleManagerUsername" Type="varchar" MaxLength="100" />
+          <Property Name="Recomendation" Type="varchar" MaxLength="2000" />
+          <Property Name="DueDate" Type="date" />
+          <Property Name="ProposedDueDate" Type="date" />
+          <Property Name="ProposedDueDateApprover" Type="varchar" MaxLength="50" />
+          <Property Name="ProposedDueDateData" Type="nvarchar" MaxLength="4000" />
+          <Property Name="CompletionDate" Type="date" />
+          <Property Name="OverdueReason" Type="varchar" MaxLength="2000" />
+          <Property Name="OverdueImpact" Type="varchar" MaxLength="200" />
+          <Property Name="OverdueMitigation" Type="varchar" MaxLength="2000" />
+          <Property Name="OverdueStatus" Type="varchar" MaxLength="2000" />
+          <Property Name="FollowUpPlan" Type="varchar" MaxLength="2000" />
+          <Property Name="AdditionalData" Type="varchar" MaxLength="2000" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="DataStatus" Type="varchar" MaxLength="20" />
+          <Property Name="FlowCode" Type="varchar" MaxLength="20" />
+          <Property Name="TransID" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TX_CorrectiveActionUser">
+          <Key>
+            <PropertyRef Name="CorrectiveActionID" />
+            <PropertyRef Name="EmpAccount" />
+          </Key>
+          <Property Name="CorrectiveActionID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="EmpAccount" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="100" />
+          <Property Name="EmpEmail" Type="varchar" MaxLength="100" />
+          <Property Name="EmpName" Type="varchar" MaxLength="100" />
+          <Property Name="EmpId" Type="varchar" MaxLength="100" />
+          <Property Name="CompanyCode" Type="varchar" MaxLength="100" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="100" />
+          <Property Name="DirectorateId" Type="varchar" MaxLength="100" />
+          <Property Name="DirectorateDesc" Type="varchar" MaxLength="100" />
+          <Property Name="DivisionId" Type="varchar" MaxLength="100" />
+          <Property Name="DivisionDesc" Type="varchar" MaxLength="100" />
+          <Property Name="DepartmentId" Type="varchar" MaxLength="100" />
+          <Property Name="DepartmentDesc" Type="varchar" MaxLength="100" />
+          <Property Name="PosId" Type="varchar" MaxLength="100" />
+          <Property Name="PosTitle" Type="varchar" MaxLength="100" />
+          <Property Name="ParentPosId" Type="varchar" MaxLength="100" />
+          <Property Name="ParentPosTitle" Type="varchar" MaxLength="100" />
+          <Property Name="SectionId" Type="varchar" MaxLength="100" />
+          <Property Name="SectionDesc" Type="varchar" MaxLength="100" />
+          <Property Name="SubDivisionId" Type="varchar" MaxLength="100" />
+          <Property Name="SubDivisionDesc" Type="varchar" MaxLength="100" />
+          <Property Name="UserType" Type="varchar" MaxLength="20" />
+          <Property Name="DataStatus" Type="varchar" MaxLength="20" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TX_Attachment">
+          <Key>
+            <PropertyRef Name="ReferenceCode" />
+            <PropertyRef Name="ProjectPhase" />
+            <PropertyRef Name="FilePath" />
+          </Key>
+          <Property Name="ReferenceCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjectPhase" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DocumentType" Type="varchar" MaxLength="50" />
+          <Property Name="FilePath" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="File" Type="varbinary" MaxLength="1" />
+          <Property Name="FileName" Type="varchar" MaxLength="255" />
+          <Property Name="FileType" Type="varchar" MaxLength="100" />
+          <Property Name="FileSize" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="FileDescription" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'DB_PHE_HSSE_DEV.PEKA.VW_AllMasterEmployee' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="VW_AllMasterEmployee">
+          <Property Name="EmpID" Type="varchar" MaxLength="100" />
+          <Property Name="EmpName" Type="varchar" MaxLength="300" />
+          <Property Name="EmpBirth" Type="varchar" MaxLength="50" />
+          <Property Name="EmpAccount" Type="varchar" MaxLength="300" />
+          <Property Name="EmpEmail" Type="varchar" MaxLength="100" />
+          <Property Name="ParentPosID" Type="varchar" MaxLength="100" />
+          <Property Name="ParentPosTitle" Type="varchar" MaxLength="256" />
+          <Property Name="EmpGroupID" Type="varchar" MaxLength="100" />
+          <Property Name="EmpGroupName" Type="varchar" MaxLength="256" />
+          <Property Name="EmpSubGroupID" Type="varchar" MaxLength="100" />
+          <Property Name="EmpSubGroupName" Type="varchar" MaxLength="256" />
+          <Property Name="KTP" Type="varchar" MaxLength="100" />
+          <Property Name="Phone" Type="varchar" MaxLength="250" />
+          <Property Name="AssignmentNumber" Type="varchar" MaxLength="10" />
+          <Property Name="PosID" Type="varchar" MaxLength="50" />
+          <Property Name="PositionTitle" Type="varchar" MaxLength="256" />
+          <Property Name="CompanyCode" Type="varchar" MaxLength="10" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="256" />
+          <Property Name="HomeCompanyCode" Type="varchar" MaxLength="10" />
+          <Property Name="CostCenter" Type="varchar" MaxLength="300" />
+          <Property Name="CostCenterName" Type="varchar" MaxLength="256" />
+          <Property Name="ControllingArea" Type="varchar" MaxLength="10" />
+          <Property Name="Layer" Type="varchar" MaxLength="50" />
+          <Property Name="PRL" Type="int" />
+          <Property Name="KBO" Type="varchar" MaxLength="50" />
+          <Property Name="NamaKBO" Type="varchar" MaxLength="256" />
+          <Property Name="PersAreaID" Type="varchar" MaxLength="10" />
+          <Property Name="PersAreaText" Type="varchar" MaxLength="256" />
+          <Property Name="PersSubAreaID" Type="varchar" MaxLength="10" />
+          <Property Name="PersSubAreaText" Type="varchar" MaxLength="256" />
+          <Property Name="DirectorateID" Type="varchar" MaxLength="10" />
+          <Property Name="DirectorateDesc" Type="varchar" MaxLength="256" />
+          <Property Name="SectionID" Type="varchar" MaxLength="10" />
+          <Property Name="SectionDesc" Type="varchar" MaxLength="256" />
+          <Property Name="DivisionID" Type="varchar" MaxLength="10" />
+          <Property Name="DivisionDesc" Type="varchar" MaxLength="256" />
+          <Property Name="SubDivisionID" Type="varchar" MaxLength="10" />
+          <Property Name="SubDivisionDesc" Type="varchar" MaxLength="256" />
+          <Property Name="DepartmentID" Type="varchar" MaxLength="10" />
+          <Property Name="DepartmentDesc" Type="varchar" MaxLength="256" />
+          <Property Name="FunctionID" Type="varchar" MaxLength="10" />
+          <Property Name="isChief" Type="int" />
+          <Property Name="isSSO" Type="bit" />
+          <Property Name="Golper" Type="varchar" MaxLength="5" />
+          <Property Name="empBirthPlace" Type="varchar" MaxLength="100" />
+          <Property Name="Nationality" Type="varchar" MaxLength="100" />
+          <Property Name="Gender" Type="varchar" MaxLength="100" />
+          <Property Name="Religion" Type="varchar" MaxLength="100" />
+          <Property Name="Address1" Type="varchar" MaxLength="256" />
+          <Property Name="Address2" Type="varchar" MaxLength="256" />
+          <Property Name="Address3" Type="varchar" MaxLength="256" />
+          <Property Name="Phone2" Type="varchar" MaxLength="100" />
+          <Property Name="MaritalStatus" Type="varchar" MaxLength="100" />
+          <Property Name="BloodType" Type="varchar" MaxLength="100" />
+          <Property Name="EmergencyContactName" Type="varchar" MaxLength="100" />
+          <Property Name="EmergencyContactPhone" Type="varchar" MaxLength="100" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="LogDataRefId" Type="uniqueidentifier" />
+          <Property Name="PrivateEmailAddress" Type="varchar" MaxLength="100" />
+          <Property Name="EmployeeStatus" Type="varchar" MaxLength="100" />
+          <Property Name="VendorID" Type="varchar" MaxLength="50" />
+          <Property Name="VendorName" Type="varchar(max)" />
+          <Property Name="Abbrv" Type="varchar" MaxLength="50" />
+          <Property Name="SyncDate" Type="datetime" />
+          <Property Name="OrgUnitID" Type="varchar" MaxLength="10" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_PHE_HSSE_DEV.PEKA.VW_PSAHierarchy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_PSAHierarchy">
+          <Key>
+            <PropertyRef Name="EntityID" />
+          </Key>
+          <Property Name="EntityID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EntityName" Type="varchar" MaxLength="200" />
+          <Property Name="EntityType" Type="varchar" MaxLength="50" />
+          <Property Name="EntityParentID" Type="varchar" MaxLength="50" />
+          <Property Name="EntityLevel" Type="int" />
+          <Property Name="HierLvl1" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl1Desc" Type="varchar" MaxLength="200" />
+          <Property Name="HierLvl1Type" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl2" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl2Desc" Type="varchar" MaxLength="200" />
+          <Property Name="HierLvl2Type" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl3" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl3Desc" Type="varchar" MaxLength="200" />
+          <Property Name="HierLvl3Type" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl4" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl4Desc" Type="varchar" MaxLength="200" />
+          <Property Name="HierLvl4Type" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl5" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl5Desc" Type="varchar" MaxLength="200" />
+          <Property Name="HierLvl5Type" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl6" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl6Desc" Type="varchar" MaxLength="200" />
+          <Property Name="HierLvl6Type" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl7" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl7Desc" Type="varchar" MaxLength="200" />
+          <Property Name="HierLvl7Type" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl8" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl8Desc" Type="varchar" MaxLength="200" />
+          <Property Name="HierLvl8Type" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl9" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl9Desc" Type="varchar" MaxLength="200" />
+          <Property Name="HierLvl9Type" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl10" Type="varchar" MaxLength="50" />
+          <Property Name="HierLvl10Desc" Type="varchar" MaxLength="200" />
+          <Property Name="HierLvl10Type" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Remarks" Type="varchar" MaxLength="400" />
+          <Property Name="CompanyCode" Type="varchar" MaxLength="10" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="100" />
+          <Property Name="PersAreaID" Type="varchar" MaxLength="10" />
+          <Property Name="PersSubAreaID" Type="varchar" MaxLength="10" />
+          <Property Name="TreeEntityID" Type="varchar" MaxLength="2000" />
+          <Property Name="TreeEntityName" Type="varchar" MaxLength="4000" />
+          <Property Name="ETLCreatedDate" Type="datetime" />
+          <Property Name="ETLChangedDate" Type="datetime" />
+          <Property Name="DirectorateID" Type="varchar" MaxLength="20" />
+          <Property Name="DirectorateDesc" Type="varchar" MaxLength="200" />
+          <Property Name="DivisionID" Type="varchar" MaxLength="20" />
+          <Property Name="DivisionDesc" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_LG_CorrectiveActionHistory_CorrectiveAction">
+          <End Role="TX_CorrectiveAction" Type="Self.TX_CorrectiveAction" Multiplicity="1" />
+          <End Role="LG_CorrectiveActionHistory" Type="Self.LG_CorrectiveActionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TX_CorrectiveAction">
+              <PropertyRef Name="CorrectiveActionID" />
+            </Principal>
+            <Dependent Role="LG_CorrectiveActionHistory">
+              <PropertyRef Name="CorrectiveActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TX_ActionTracking_Source">
+          <End Role="MD_ActionTrackingSource" Type="Self.MD_ActionTrackingSource" Multiplicity="0..1" />
+          <End Role="TX_ActionTracking" Type="Self.TX_ActionTracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MD_ActionTrackingSource">
+              <PropertyRef Name="Source" />
+              <PropertyRef Name="DirectorateID" />
+              <PropertyRef Name="DivisionID" />
+              <PropertyRef Name="SubDivisionID" />
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="TX_ActionTracking">
+              <PropertyRef Name="ActionTrackingSource" />
+              <PropertyRef Name="SourceDirectorateID" />
+              <PropertyRef Name="SourceDivisionID" />
+              <PropertyRef Name="SourceSubDivisionID" />
+              <PropertyRef Name="SourceDepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TX_CorrectiveAction_ActionTracking">
+          <End Role="TX_ActionTracking" Type="Self.TX_ActionTracking" Multiplicity="1" />
+          <End Role="TX_CorrectiveAction" Type="Self.TX_CorrectiveAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TX_ActionTracking">
+              <PropertyRef Name="ActionTrackingID" />
+            </Principal>
+            <Dependent Role="TX_CorrectiveAction">
+              <PropertyRef Name="ActionTrackingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TX_CorrectiveAction_Priority">
+          <End Role="MD_CorrectiveActionPriority" Type="Self.MD_CorrectiveActionPriority" Multiplicity="0..1" />
+          <End Role="TX_CorrectiveAction" Type="Self.TX_CorrectiveAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MD_CorrectiveActionPriority">
+              <PropertyRef Name="Priority" />
+            </Principal>
+            <Dependent Role="TX_CorrectiveAction">
+              <PropertyRef Name="CorrectiveActionPriority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TX_CorrectiveActionOverdueImpact">
+          <End Role="MD_CorrectiveActionOverdueImpact" Type="Self.MD_CorrectiveActionOverdueImpact" Multiplicity="0..1" />
+          <End Role="TX_CorrectiveAction" Type="Self.TX_CorrectiveAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MD_CorrectiveActionOverdueImpact">
+              <PropertyRef Name="OverdueImpact" />
+            </Principal>
+            <Dependent Role="TX_CorrectiveAction">
+              <PropertyRef Name="OverdueImpact" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TX_CorrectiveActionUser_CorrectiveAction">
+          <End Role="TX_CorrectiveAction" Type="Self.TX_CorrectiveAction" Multiplicity="1" />
+          <End Role="TX_CorrectiveActionUser" Type="Self.TX_CorrectiveActionUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TX_CorrectiveAction">
+              <PropertyRef Name="CorrectiveActionID" />
+            </Principal>
+            <Dependent Role="TX_CorrectiveActionUser">
+              <PropertyRef Name="CorrectiveActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ActrisDbStoreContainer">
+          <EntitySet Name="LG_CorrectiveActionHistory" EntityType="Self.LG_CorrectiveActionHistory" Schema="actris" store:Type="Tables" />
+          <EntitySet Name="MD_ActionTrackingSource" EntityType="Self.MD_ActionTrackingSource" Schema="actris" store:Type="Tables" />
+          <EntitySet Name="MD_CorrectiveActionOverdueImpact" EntityType="Self.MD_CorrectiveActionOverdueImpact" Schema="actris" store:Type="Tables" />
+          <EntitySet Name="MD_CorrectiveActionPriority" EntityType="Self.MD_CorrectiveActionPriority" Schema="actris" store:Type="Tables" />
+          <EntitySet Name="TX_ActionTracking" EntityType="Self.TX_ActionTracking" Schema="actris" store:Type="Tables" />
+          <EntitySet Name="TX_CorrectiveAction" EntityType="Self.TX_CorrectiveAction" Schema="actris" store:Type="Tables" />
+          <EntitySet Name="TX_CorrectiveActionUser" EntityType="Self.TX_CorrectiveActionUser" Schema="actris" store:Type="Tables" />
+          <EntitySet Name="TX_Attachment" EntityType="Self.TX_Attachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VW_PSAHierarchy" EntityType="Self.VW_PSAHierarchy" store:Type="Views" store:Schema="PEKA">
+            <DefiningQuery>SELECT 
+    [VW_PSAHierarchy].[EntityID] AS [EntityID], 
+    [VW_PSAHierarchy].[EntityName] AS [EntityName], 
+    [VW_PSAHierarchy].[EntityType] AS [EntityType], 
+    [VW_PSAHierarchy].[EntityParentID] AS [EntityParentID], 
+    [VW_PSAHierarchy].[EntityLevel] AS [EntityLevel], 
+    [VW_PSAHierarchy].[HierLvl1] AS [HierLvl1], 
+    [VW_PSAHierarchy].[HierLvl1Desc] AS [HierLvl1Desc], 
+    [VW_PSAHierarchy].[HierLvl1Type] AS [HierLvl1Type], 
+    [VW_PSAHierarchy].[HierLvl2] AS [HierLvl2], 
+    [VW_PSAHierarchy].[HierLvl2Desc] AS [HierLvl2Desc], 
+    [VW_PSAHierarchy].[HierLvl2Type] AS [HierLvl2Type], 
+    [VW_PSAHierarchy].[HierLvl3] AS [HierLvl3], 
+    [VW_PSAHierarchy].[HierLvl3Desc] AS [HierLvl3Desc], 
+    [VW_PSAHierarchy].[HierLvl3Type] AS [HierLvl3Type], 
+    [VW_PSAHierarchy].[HierLvl4] AS [HierLvl4], 
+    [VW_PSAHierarchy].[HierLvl4Desc] AS [HierLvl4Desc], 
+    [VW_PSAHierarchy].[HierLvl4Type] AS [HierLvl4Type], 
+    [VW_PSAHierarchy].[HierLvl5] AS [HierLvl5], 
+    [VW_PSAHierarchy].[HierLvl5Desc] AS [HierLvl5Desc], 
+    [VW_PSAHierarchy].[HierLvl5Type] AS [HierLvl5Type], 
+    [VW_PSAHierarchy].[HierLvl6] AS [HierLvl6], 
+    [VW_PSAHierarchy].[HierLvl6Desc] AS [HierLvl6Desc], 
+    [VW_PSAHierarchy].[HierLvl6Type] AS [HierLvl6Type], 
+    [VW_PSAHierarchy].[HierLvl7] AS [HierLvl7], 
+    [VW_PSAHierarchy].[HierLvl7Desc] AS [HierLvl7Desc], 
+    [VW_PSAHierarchy].[HierLvl7Type] AS [HierLvl7Type], 
+    [VW_PSAHierarchy].[HierLvl8] AS [HierLvl8], 
+    [VW_PSAHierarchy].[HierLvl8Desc] AS [HierLvl8Desc], 
+    [VW_PSAHierarchy].[HierLvl8Type] AS [HierLvl8Type], 
+    [VW_PSAHierarchy].[HierLvl9] AS [HierLvl9], 
+    [VW_PSAHierarchy].[HierLvl9Desc] AS [HierLvl9Desc], 
+    [VW_PSAHierarchy].[HierLvl9Type] AS [HierLvl9Type], 
+    [VW_PSAHierarchy].[HierLvl10] AS [HierLvl10], 
+    [VW_PSAHierarchy].[HierLvl10Desc] AS [HierLvl10Desc], 
+    [VW_PSAHierarchy].[HierLvl10Type] AS [HierLvl10Type], 
+    [VW_PSAHierarchy].[IsActive] AS [IsActive], 
+    [VW_PSAHierarchy].[Remarks] AS [Remarks], 
+    [VW_PSAHierarchy].[CompanyCode] AS [CompanyCode], 
+    [VW_PSAHierarchy].[CompanyName] AS [CompanyName], 
+    [VW_PSAHierarchy].[PersAreaID] AS [PersAreaID], 
+    [VW_PSAHierarchy].[PersSubAreaID] AS [PersSubAreaID], 
+    [VW_PSAHierarchy].[TreeEntityID] AS [TreeEntityID], 
+    [VW_PSAHierarchy].[TreeEntityName] AS [TreeEntityName], 
+    [VW_PSAHierarchy].[ETLCreatedDate] AS [ETLCreatedDate], 
+    [VW_PSAHierarchy].[ETLChangedDate] AS [ETLChangedDate], 
+    [VW_PSAHierarchy].[DirectorateID] AS [DirectorateID], 
+    [VW_PSAHierarchy].[DirectorateDesc] AS [DirectorateDesc], 
+    [VW_PSAHierarchy].[DivisionID] AS [DivisionID], 
+    [VW_PSAHierarchy].[DivisionDesc] AS [DivisionDesc]
+    FROM [PEKA].[VW_PSAHierarchy] AS [VW_PSAHierarchy]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_LG_CorrectiveActionHistory_CorrectiveAction" Association="Self.FK_LG_CorrectiveActionHistory_CorrectiveAction">
+            <End Role="TX_CorrectiveAction" EntitySet="TX_CorrectiveAction" />
+            <End Role="LG_CorrectiveActionHistory" EntitySet="LG_CorrectiveActionHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TX_ActionTracking_Source" Association="Self.FK_TX_ActionTracking_Source">
+            <End Role="MD_ActionTrackingSource" EntitySet="MD_ActionTrackingSource" />
+            <End Role="TX_ActionTracking" EntitySet="TX_ActionTracking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TX_CorrectiveAction_ActionTracking" Association="Self.FK_TX_CorrectiveAction_ActionTracking">
+            <End Role="TX_ActionTracking" EntitySet="TX_ActionTracking" />
+            <End Role="TX_CorrectiveAction" EntitySet="TX_CorrectiveAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TX_CorrectiveAction_Priority" Association="Self.FK_TX_CorrectiveAction_Priority">
+            <End Role="MD_CorrectiveActionPriority" EntitySet="MD_CorrectiveActionPriority" />
+            <End Role="TX_CorrectiveAction" EntitySet="TX_CorrectiveAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TX_CorrectiveActionOverdueImpact" Association="Self.FK_TX_CorrectiveActionOverdueImpact">
+            <End Role="MD_CorrectiveActionOverdueImpact" EntitySet="MD_CorrectiveActionOverdueImpact" />
+            <End Role="TX_CorrectiveAction" EntitySet="TX_CorrectiveAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TX_CorrectiveActionUser_CorrectiveAction" Association="Self.FK_TX_CorrectiveActionUser_CorrectiveAction">
+            <End Role="TX_CorrectiveAction" EntitySet="TX_CorrectiveAction" />
+            <End Role="TX_CorrectiveActionUser" EntitySet="TX_CorrectiveActionUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ActrisDb" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ActrisContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LG_CorrectiveActionHistory" EntityType="ActrisDb.LG_CorrectiveActionHistory" />
+          <EntitySet Name="MD_ActionTrackingSource" EntityType="ActrisDb.MD_ActionTrackingSource" />
+          <EntitySet Name="MD_CorrectiveActionOverdueImpact" EntityType="ActrisDb.MD_CorrectiveActionOverdueImpact" />
+          <EntitySet Name="MD_CorrectiveActionPriority" EntityType="ActrisDb.MD_CorrectiveActionPriority" />
+          <EntitySet Name="TX_ActionTracking" EntityType="ActrisDb.TX_ActionTracking" />
+          <EntitySet Name="TX_CorrectiveAction" EntityType="ActrisDb.TX_CorrectiveAction" />
+          <EntitySet Name="TX_CorrectiveActionUser" EntityType="ActrisDb.TX_CorrectiveActionUser" />
+          <EntitySet Name="VW_PSAHierarchy" EntityType="ActrisDb.VW_PSAHierarchy" />
+          <AssociationSet Name="FK_LG_CorrectiveActionHistory_CorrectiveAction" Association="ActrisDb.FK_LG_CorrectiveActionHistory_CorrectiveAction">
+            <End Role="TX_CorrectiveAction" EntitySet="TX_CorrectiveAction" />
+            <End Role="LG_CorrectiveActionHistory" EntitySet="LG_CorrectiveActionHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TX_ActionTracking_Source" Association="ActrisDb.FK_TX_ActionTracking_Source">
+            <End Role="MD_ActionTrackingSource" EntitySet="MD_ActionTrackingSource" />
+            <End Role="TX_ActionTracking" EntitySet="TX_ActionTracking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TX_CorrectiveActionOverdueImpact" Association="ActrisDb.FK_TX_CorrectiveActionOverdueImpact">
+            <End Role="MD_CorrectiveActionOverdueImpact" EntitySet="MD_CorrectiveActionOverdueImpact" />
+            <End Role="TX_CorrectiveAction" EntitySet="TX_CorrectiveAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TX_CorrectiveAction_Priority" Association="ActrisDb.FK_TX_CorrectiveAction_Priority">
+            <End Role="MD_CorrectiveActionPriority" EntitySet="MD_CorrectiveActionPriority" />
+            <End Role="TX_CorrectiveAction" EntitySet="TX_CorrectiveAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TX_CorrectiveAction_ActionTracking" Association="ActrisDb.FK_TX_CorrectiveAction_ActionTracking">
+            <End Role="TX_ActionTracking" EntitySet="TX_ActionTracking" />
+            <End Role="TX_CorrectiveAction" EntitySet="TX_CorrectiveAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TX_CorrectiveActionUser_CorrectiveAction" Association="ActrisDb.FK_TX_CorrectiveActionUser_CorrectiveAction">
+            <End Role="TX_CorrectiveAction" EntitySet="TX_CorrectiveAction" />
+            <End Role="TX_CorrectiveActionUser" EntitySet="TX_CorrectiveActionUser" />
+          </AssociationSet>
+          <EntitySet Name="TX_Attachment" EntityType="ActrisDb.TX_Attachment" />
+        </EntityContainer>
+        <EntityType Name="LG_CorrectiveActionHistory">
+          <Key>
+            <PropertyRef Name="CorrectiveActionHistoryID" />
+          </Key>
+          <Property Name="CorrectiveActionHistoryID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CorrectiveActionID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ActionBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ActionDate" Type="DateTime" Precision="3" />
+          <Property Name="NextAction" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NextActionBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="DataStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TX_CorrectiveAction" Relationship="ActrisDb.FK_LG_CorrectiveActionHistory_CorrectiveAction" FromRole="LG_CorrectiveActionHistory" ToRole="TX_CorrectiveAction" />
+        </EntityType>
+        <EntityType Name="MD_ActionTrackingSource">
+          <Key>
+            <PropertyRef Name="Source" />
+            <PropertyRef Name="DirectorateID" />
+            <PropertyRef Name="DivisionID" />
+            <PropertyRef Name="SubDivisionID" />
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="Source" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SourceBahasa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DataStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DirectorateID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DirectorateDesc" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="DivisionID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DivisionDesc" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="SubDivisionID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SubDivisionDesc" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TX_ActionTracking" Relationship="ActrisDb.FK_TX_ActionTracking_Source" FromRole="MD_ActionTrackingSource" ToRole="TX_ActionTracking" />
+        </EntityType>
+        <EntityType Name="MD_CorrectiveActionOverdueImpact">
+          <Key>
+            <PropertyRef Name="OverdueImpact" />
+          </Key>
+          <Property Name="OverdueImpact" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ImpactBahasa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DataStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TX_CorrectiveAction" Relationship="ActrisDb.FK_TX_CorrectiveActionOverdueImpact" FromRole="MD_CorrectiveActionOverdueImpact" ToRole="TX_CorrectiveAction" />
+        </EntityType>
+        <EntityType Name="MD_CorrectiveActionPriority">
+          <Key>
+            <PropertyRef Name="Priority" />
+          </Key>
+          <Property Name="Priority" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PriorityBahasa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PriorityDuration" Type="Int32" />
+          <Property Name="DataStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TX_CorrectiveAction" Relationship="ActrisDb.FK_TX_CorrectiveAction_Priority" FromRole="MD_CorrectiveActionPriority" ToRole="TX_CorrectiveAction" />
+        </EntityType>
+        <EntityType Name="TX_ActionTracking">
+          <Key>
+            <PropertyRef Name="ActionTrackingID" />
+          </Key>
+          <Property Name="ActionTrackingID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ActionTrackingReference" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ObservationID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LocationStatusID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ActionTrackingSource" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SourceDirectorateID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SourceDivisionID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SourceSubDivisionID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SourceDepartmentID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IssueDate" Type="DateTime" Precision="0" />
+          <Property Name="FindingDesc" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="LocationID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubLocation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Nct" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="Rca" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DataStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AdditionalData" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="TypeShuRegion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="DirectorateRegionalID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="DirectorateRegionalDesc" Type="String" MaxLength="550" FixedLength="false" Unicode="false" />
+          <Property Name="DivisiZonaID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="DivisiZonaDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="WilayahkerjaID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="WilayahkerjaDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsConfidential" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="MD_ActionTrackingSource" Relationship="ActrisDb.FK_TX_ActionTracking_Source" FromRole="TX_ActionTracking" ToRole="MD_ActionTrackingSource" />
+          <NavigationProperty Name="TX_CorrectiveAction" Relationship="ActrisDb.FK_TX_CorrectiveAction_ActionTracking" FromRole="TX_ActionTracking" ToRole="TX_CorrectiveAction" />
+        </EntityType>
+        <EntityType Name="TX_CorrectiveAction">
+          <Key>
+            <PropertyRef Name="CorrectiveActionID" />
+          </Key>
+          <Property Name="CorrectiveActionID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ActionTrackingID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CorrectiveActionPriority" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ResponsibleDivision" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ResponsibleDivisionID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ResponsibleDepartment" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ResponsibleDepartmentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ResponsibleManager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ResponsibleManagerApprover" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ResponsibleManagerUsername" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Recomendation" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="DueDate" Type="DateTime" Precision="0" />
+          <Property Name="ProposedDueDate" Type="DateTime" Precision="0" />
+          <Property Name="ProposedDueDateApprover" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProposedDueDateData" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="OverdueReason" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="OverdueImpact" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="OverdueMitigation" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="OverdueStatus" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="FollowUpPlan" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="AdditionalData" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DataStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FlowCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TransID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="LG_CorrectiveActionHistory" Relationship="ActrisDb.FK_LG_CorrectiveActionHistory_CorrectiveAction" FromRole="TX_CorrectiveAction" ToRole="LG_CorrectiveActionHistory" />
+          <NavigationProperty Name="MD_CorrectiveActionOverdueImpact" Relationship="ActrisDb.FK_TX_CorrectiveActionOverdueImpact" FromRole="TX_CorrectiveAction" ToRole="MD_CorrectiveActionOverdueImpact" />
+          <NavigationProperty Name="MD_CorrectiveActionPriority" Relationship="ActrisDb.FK_TX_CorrectiveAction_Priority" FromRole="TX_CorrectiveAction" ToRole="MD_CorrectiveActionPriority" />
+          <NavigationProperty Name="TX_ActionTracking" Relationship="ActrisDb.FK_TX_CorrectiveAction_ActionTracking" FromRole="TX_CorrectiveAction" ToRole="TX_ActionTracking" />
+          <NavigationProperty Name="TX_CorrectiveActionUser" Relationship="ActrisDb.FK_TX_CorrectiveActionUser_CorrectiveAction" FromRole="TX_CorrectiveAction" ToRole="TX_CorrectiveActionUser" />
+        </EntityType>
+        <EntityType Name="TX_CorrectiveActionUser">
+          <Key>
+            <PropertyRef Name="CorrectiveActionID" />
+            <PropertyRef Name="EmpAccount" />
+          </Key>
+          <Property Name="CorrectiveActionID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmpAccount" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmpEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmpName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmpId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DirectorateId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DirectorateDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DivisionId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DivisionDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PosId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PosTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ParentPosId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ParentPosTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SectionId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SectionDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubDivisionId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubDivisionDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DataStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TX_CorrectiveAction" Relationship="ActrisDb.FK_TX_CorrectiveActionUser_CorrectiveAction" FromRole="TX_CorrectiveActionUser" ToRole="TX_CorrectiveAction" />
+        </EntityType>
+        <EntityType Name="VW_PSAHierarchy">
+          <Key>
+            <PropertyRef Name="EntityID" />
+          </Key>
+          <Property Name="EntityID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EntityName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EntityType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EntityParentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EntityLevel" Type="Int32" />
+          <Property Name="HierLvl1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl1Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl1Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl2Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl2Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl3Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl3Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl4Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl4Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl5Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl5Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl6" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl6Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl6Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl7" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl7Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl7Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl8" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl8Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl8Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl9" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl9Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl9Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl10" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl10Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HierLvl10Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PersAreaID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PersSubAreaID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TreeEntityID" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="TreeEntityName" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="ETLCreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ETLChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="DirectorateID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DirectorateDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DivisionID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DivisionDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_LG_CorrectiveActionHistory_CorrectiveAction">
+          <End Type="ActrisDb.TX_CorrectiveAction" Role="TX_CorrectiveAction" Multiplicity="1" />
+          <End Type="ActrisDb.LG_CorrectiveActionHistory" Role="LG_CorrectiveActionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TX_CorrectiveAction">
+              <PropertyRef Name="CorrectiveActionID" />
+            </Principal>
+            <Dependent Role="LG_CorrectiveActionHistory">
+              <PropertyRef Name="CorrectiveActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TX_ActionTracking_Source">
+          <End Type="ActrisDb.MD_ActionTrackingSource" Role="MD_ActionTrackingSource" Multiplicity="0..1" />
+          <End Type="ActrisDb.TX_ActionTracking" Role="TX_ActionTracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MD_ActionTrackingSource">
+              <PropertyRef Name="Source" />
+              <PropertyRef Name="DirectorateID" />
+              <PropertyRef Name="DivisionID" />
+              <PropertyRef Name="SubDivisionID" />
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="TX_ActionTracking">
+              <PropertyRef Name="ActionTrackingSource" />
+              <PropertyRef Name="SourceDirectorateID" />
+              <PropertyRef Name="SourceDivisionID" />
+              <PropertyRef Name="SourceSubDivisionID" />
+              <PropertyRef Name="SourceDepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TX_CorrectiveActionOverdueImpact">
+          <End Type="ActrisDb.MD_CorrectiveActionOverdueImpact" Role="MD_CorrectiveActionOverdueImpact" Multiplicity="0..1" />
+          <End Type="ActrisDb.TX_CorrectiveAction" Role="TX_CorrectiveAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MD_CorrectiveActionOverdueImpact">
+              <PropertyRef Name="OverdueImpact" />
+            </Principal>
+            <Dependent Role="TX_CorrectiveAction">
+              <PropertyRef Name="OverdueImpact" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TX_CorrectiveAction_Priority">
+          <End Type="ActrisDb.MD_CorrectiveActionPriority" Role="MD_CorrectiveActionPriority" Multiplicity="0..1" />
+          <End Type="ActrisDb.TX_CorrectiveAction" Role="TX_CorrectiveAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MD_CorrectiveActionPriority">
+              <PropertyRef Name="Priority" />
+            </Principal>
+            <Dependent Role="TX_CorrectiveAction">
+              <PropertyRef Name="CorrectiveActionPriority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TX_CorrectiveAction_ActionTracking">
+          <End Type="ActrisDb.TX_ActionTracking" Role="TX_ActionTracking" Multiplicity="1" />
+          <End Type="ActrisDb.TX_CorrectiveAction" Role="TX_CorrectiveAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TX_ActionTracking">
+              <PropertyRef Name="ActionTrackingID" />
+            </Principal>
+            <Dependent Role="TX_CorrectiveAction">
+              <PropertyRef Name="ActionTrackingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TX_CorrectiveActionUser_CorrectiveAction">
+          <End Type="ActrisDb.TX_CorrectiveAction" Role="TX_CorrectiveAction" Multiplicity="1" />
+          <End Type="ActrisDb.TX_CorrectiveActionUser" Role="TX_CorrectiveActionUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TX_CorrectiveAction">
+              <PropertyRef Name="CorrectiveActionID" />
+            </Principal>
+            <Dependent Role="TX_CorrectiveActionUser">
+              <PropertyRef Name="CorrectiveActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TX_Attachment">
+          <Key>
+            <PropertyRef Name="ReferenceCode" />
+            <PropertyRef Name="ProjectPhase" />
+            <PropertyRef Name="FilePath" />
+          </Key>
+          <Property Name="ReferenceCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectPhase" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FilePath" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="File" Type="Binary" MaxLength="1" FixedLength="false" />
+          <Property Name="FileName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FileSize" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FileDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ActrisDbStoreContainer" CdmEntityContainer="ActrisContext">
+          <EntitySetMapping Name="LG_CorrectiveActionHistory">
+            <EntityTypeMapping TypeName="ActrisDb.LG_CorrectiveActionHistory">
+              <MappingFragment StoreEntitySet="LG_CorrectiveActionHistory">
+                <ScalarProperty Name="DataStatus" ColumnName="DataStatus" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="NextActionBy" ColumnName="NextActionBy" />
+                <ScalarProperty Name="NextAction" ColumnName="NextAction" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+                <ScalarProperty Name="ActionBy" ColumnName="ActionBy" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="CorrectiveActionID" ColumnName="CorrectiveActionID" />
+                <ScalarProperty Name="CorrectiveActionHistoryID" ColumnName="CorrectiveActionHistoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MD_ActionTrackingSource">
+            <EntityTypeMapping TypeName="ActrisDb.MD_ActionTrackingSource">
+              <MappingFragment StoreEntitySet="MD_ActionTrackingSource">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DepartmentDesc" ColumnName="DepartmentDesc" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="SubDivisionDesc" ColumnName="SubDivisionDesc" />
+                <ScalarProperty Name="SubDivisionID" ColumnName="SubDivisionID" />
+                <ScalarProperty Name="DivisionDesc" ColumnName="DivisionDesc" />
+                <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+                <ScalarProperty Name="DirectorateDesc" ColumnName="DirectorateDesc" />
+                <ScalarProperty Name="DirectorateID" ColumnName="DirectorateID" />
+                <ScalarProperty Name="DataStatus" ColumnName="DataStatus" />
+                <ScalarProperty Name="SourceBahasa" ColumnName="SourceBahasa" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MD_CorrectiveActionOverdueImpact">
+            <EntityTypeMapping TypeName="ActrisDb.MD_CorrectiveActionOverdueImpact">
+              <MappingFragment StoreEntitySet="MD_CorrectiveActionOverdueImpact">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DataStatus" ColumnName="DataStatus" />
+                <ScalarProperty Name="ImpactBahasa" ColumnName="ImpactBahasa" />
+                <ScalarProperty Name="OverdueImpact" ColumnName="OverdueImpact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MD_CorrectiveActionPriority">
+            <EntityTypeMapping TypeName="ActrisDb.MD_CorrectiveActionPriority">
+              <MappingFragment StoreEntitySet="MD_CorrectiveActionPriority">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DataStatus" ColumnName="DataStatus" />
+                <ScalarProperty Name="PriorityDuration" ColumnName="PriorityDuration" />
+                <ScalarProperty Name="PriorityBahasa" ColumnName="PriorityBahasa" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TX_ActionTracking">
+            <EntityTypeMapping TypeName="ActrisDb.TX_ActionTracking">
+              <MappingFragment StoreEntitySet="TX_ActionTracking">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsConfidential" ColumnName="IsConfidential" />
+                <ScalarProperty Name="WilayahkerjaDesc" ColumnName="WilayahkerjaDesc" />
+                <ScalarProperty Name="WilayahkerjaID" ColumnName="WilayahkerjaID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="DivisiZonaDesc" ColumnName="DivisiZonaDesc" />
+                <ScalarProperty Name="DivisiZonaID" ColumnName="DivisiZonaID" />
+                <ScalarProperty Name="DirectorateRegionalDesc" ColumnName="DirectorateRegionalDesc" />
+                <ScalarProperty Name="DirectorateRegionalID" ColumnName="DirectorateRegionalID" />
+                <ScalarProperty Name="TypeShuRegion" ColumnName="TypeShuRegion" />
+                <ScalarProperty Name="AdditionalData" ColumnName="AdditionalData" />
+                <ScalarProperty Name="DataStatus" ColumnName="DataStatus" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Rca" ColumnName="Rca" />
+                <ScalarProperty Name="Nct" ColumnName="Nct" />
+                <ScalarProperty Name="SubLocation" ColumnName="SubLocation" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="FindingDesc" ColumnName="FindingDesc" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="SourceDepartmentID" ColumnName="SourceDepartmentID" />
+                <ScalarProperty Name="SourceSubDivisionID" ColumnName="SourceSubDivisionID" />
+                <ScalarProperty Name="SourceDivisionID" ColumnName="SourceDivisionID" />
+                <ScalarProperty Name="SourceDirectorateID" ColumnName="SourceDirectorateID" />
+                <ScalarProperty Name="ActionTrackingSource" ColumnName="ActionTrackingSource" />
+                <ScalarProperty Name="LocationStatusID" ColumnName="LocationStatusID" />
+                <ScalarProperty Name="ObservationID" ColumnName="ObservationID" />
+                <ScalarProperty Name="ActionTrackingReference" ColumnName="ActionTrackingReference" />
+                <ScalarProperty Name="ActionTrackingID" ColumnName="ActionTrackingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TX_CorrectiveAction">
+            <EntityTypeMapping TypeName="ActrisDb.TX_CorrectiveAction">
+              <MappingFragment StoreEntitySet="TX_CorrectiveAction">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TransID" ColumnName="TransID" />
+                <ScalarProperty Name="FlowCode" ColumnName="FlowCode" />
+                <ScalarProperty Name="DataStatus" ColumnName="DataStatus" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AdditionalData" ColumnName="AdditionalData" />
+                <ScalarProperty Name="FollowUpPlan" ColumnName="FollowUpPlan" />
+                <ScalarProperty Name="OverdueStatus" ColumnName="OverdueStatus" />
+                <ScalarProperty Name="OverdueMitigation" ColumnName="OverdueMitigation" />
+                <ScalarProperty Name="OverdueImpact" ColumnName="OverdueImpact" />
+                <ScalarProperty Name="OverdueReason" ColumnName="OverdueReason" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="ProposedDueDateData" ColumnName="ProposedDueDateData" />
+                <ScalarProperty Name="ProposedDueDateApprover" ColumnName="ProposedDueDateApprover" />
+                <ScalarProperty Name="ProposedDueDate" ColumnName="ProposedDueDate" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="Recomendation" ColumnName="Recomendation" />
+                <ScalarProperty Name="ResponsibleManagerUsername" ColumnName="ResponsibleManagerUsername" />
+                <ScalarProperty Name="ResponsibleManagerApprover" ColumnName="ResponsibleManagerApprover" />
+                <ScalarProperty Name="ResponsibleManager" ColumnName="ResponsibleManager" />
+                <ScalarProperty Name="ResponsibleDepartmentID" ColumnName="ResponsibleDepartmentID" />
+                <ScalarProperty Name="ResponsibleDepartment" ColumnName="ResponsibleDepartment" />
+                <ScalarProperty Name="ResponsibleDivisionID" ColumnName="ResponsibleDivisionID" />
+                <ScalarProperty Name="ResponsibleDivision" ColumnName="ResponsibleDivision" />
+                <ScalarProperty Name="CorrectiveActionPriority" ColumnName="CorrectiveActionPriority" />
+                <ScalarProperty Name="ActionTrackingID" ColumnName="ActionTrackingID" />
+                <ScalarProperty Name="CorrectiveActionID" ColumnName="CorrectiveActionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TX_CorrectiveActionUser">
+            <EntityTypeMapping TypeName="ActrisDb.TX_CorrectiveActionUser">
+              <MappingFragment StoreEntitySet="TX_CorrectiveActionUser">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DataStatus" ColumnName="DataStatus" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="SubDivisionDesc" ColumnName="SubDivisionDesc" />
+                <ScalarProperty Name="SubDivisionId" ColumnName="SubDivisionId" />
+                <ScalarProperty Name="SectionDesc" ColumnName="SectionDesc" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+                <ScalarProperty Name="ParentPosTitle" ColumnName="ParentPosTitle" />
+                <ScalarProperty Name="ParentPosId" ColumnName="ParentPosId" />
+                <ScalarProperty Name="PosTitle" ColumnName="PosTitle" />
+                <ScalarProperty Name="PosId" ColumnName="PosId" />
+                <ScalarProperty Name="DepartmentDesc" ColumnName="DepartmentDesc" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="DivisionDesc" ColumnName="DivisionDesc" />
+                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+                <ScalarProperty Name="DirectorateDesc" ColumnName="DirectorateDesc" />
+                <ScalarProperty Name="DirectorateId" ColumnName="DirectorateId" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="EmpEmail" ColumnName="EmpEmail" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="EmpAccount" ColumnName="EmpAccount" />
+                <ScalarProperty Name="CorrectiveActionID" ColumnName="CorrectiveActionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_PSAHierarchy">
+            <EntityTypeMapping TypeName="ActrisDb.VW_PSAHierarchy">
+              <MappingFragment StoreEntitySet="VW_PSAHierarchy">
+                <ScalarProperty Name="DivisionDesc" ColumnName="DivisionDesc" />
+                <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+                <ScalarProperty Name="DirectorateDesc" ColumnName="DirectorateDesc" />
+                <ScalarProperty Name="DirectorateID" ColumnName="DirectorateID" />
+                <ScalarProperty Name="ETLChangedDate" ColumnName="ETLChangedDate" />
+                <ScalarProperty Name="ETLCreatedDate" ColumnName="ETLCreatedDate" />
+                <ScalarProperty Name="TreeEntityName" ColumnName="TreeEntityName" />
+                <ScalarProperty Name="TreeEntityID" ColumnName="TreeEntityID" />
+                <ScalarProperty Name="PersSubAreaID" ColumnName="PersSubAreaID" />
+                <ScalarProperty Name="PersAreaID" ColumnName="PersAreaID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="HierLvl10Type" ColumnName="HierLvl10Type" />
+                <ScalarProperty Name="HierLvl10Desc" ColumnName="HierLvl10Desc" />
+                <ScalarProperty Name="HierLvl10" ColumnName="HierLvl10" />
+                <ScalarProperty Name="HierLvl9Type" ColumnName="HierLvl9Type" />
+                <ScalarProperty Name="HierLvl9Desc" ColumnName="HierLvl9Desc" />
+                <ScalarProperty Name="HierLvl9" ColumnName="HierLvl9" />
+                <ScalarProperty Name="HierLvl8Type" ColumnName="HierLvl8Type" />
+                <ScalarProperty Name="HierLvl8Desc" ColumnName="HierLvl8Desc" />
+                <ScalarProperty Name="HierLvl8" ColumnName="HierLvl8" />
+                <ScalarProperty Name="HierLvl7Type" ColumnName="HierLvl7Type" />
+                <ScalarProperty Name="HierLvl7Desc" ColumnName="HierLvl7Desc" />
+                <ScalarProperty Name="HierLvl7" ColumnName="HierLvl7" />
+                <ScalarProperty Name="HierLvl6Type" ColumnName="HierLvl6Type" />
+                <ScalarProperty Name="HierLvl6Desc" ColumnName="HierLvl6Desc" />
+                <ScalarProperty Name="HierLvl6" ColumnName="HierLvl6" />
+                <ScalarProperty Name="HierLvl5Type" ColumnName="HierLvl5Type" />
+                <ScalarProperty Name="HierLvl5Desc" ColumnName="HierLvl5Desc" />
+                <ScalarProperty Name="HierLvl5" ColumnName="HierLvl5" />
+                <ScalarProperty Name="HierLvl4Type" ColumnName="HierLvl4Type" />
+                <ScalarProperty Name="HierLvl4Desc" ColumnName="HierLvl4Desc" />
+                <ScalarProperty Name="HierLvl4" ColumnName="HierLvl4" />
+                <ScalarProperty Name="HierLvl3Type" ColumnName="HierLvl3Type" />
+                <ScalarProperty Name="HierLvl3Desc" ColumnName="HierLvl3Desc" />
+                <ScalarProperty Name="HierLvl3" ColumnName="HierLvl3" />
+                <ScalarProperty Name="HierLvl2Type" ColumnName="HierLvl2Type" />
+                <ScalarProperty Name="HierLvl2Desc" ColumnName="HierLvl2Desc" />
+                <ScalarProperty Name="HierLvl2" ColumnName="HierLvl2" />
+                <ScalarProperty Name="HierLvl1Type" ColumnName="HierLvl1Type" />
+                <ScalarProperty Name="HierLvl1Desc" ColumnName="HierLvl1Desc" />
+                <ScalarProperty Name="HierLvl1" ColumnName="HierLvl1" />
+                <ScalarProperty Name="EntityLevel" ColumnName="EntityLevel" />
+                <ScalarProperty Name="EntityParentID" ColumnName="EntityParentID" />
+                <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+                <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+                <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TX_Attachment">
+            <EntityTypeMapping TypeName="ActrisDb.TX_Attachment">
+              <MappingFragment StoreEntitySet="TX_Attachment">
+                <ScalarProperty Name="FileDescription" ColumnName="FileDescription" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+                <ScalarProperty Name="ProjectPhase" ColumnName="ProjectPhase" />
+                <ScalarProperty Name="ReferenceCode" ColumnName="ReferenceCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

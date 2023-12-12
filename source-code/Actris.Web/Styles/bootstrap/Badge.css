@@ -1,0 +1,6 @@
+﻿.badge-primary {
+  color: var(--bs-primary);
+  background: var(--light-blue);
+  border: 1px solid var(--bs-primary);
+  font-size: 12px;
+}

@@ -1,0 +1,19 @@
+﻿@using Actris.Abstraction.Model.View;
+@model Field
+
+<div id="@Model.Id">
+
+    @if (Model.IsDisabled == false)
+    {
+        <div>
+            <button type="button" class="btn btn-primary px-3 btn-sm" onclick="crud.showChildCreateForm('@Model.Id')">Add New</button>
+        </div>
+    }
+
+    <div class="append-child-grid-here">
+        @{
+            Html.RenderAction("InitChildGrid", Model);
+        }
+    </div>
+
+</div>

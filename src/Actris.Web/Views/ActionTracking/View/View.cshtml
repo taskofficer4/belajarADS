@@ -1,0 +1,57 @@
+﻿@model Actris.Abstraction.Model.Dto.ActViewDto
+
+@{ 
+    Layout = "~/Views/Shared/_LayoutNoSideBar.cshtml";
+}
+
+<div class="header-page d-flex align-items-center" style="border:none">
+    <div class="d-flex flex-column flex-md-row">
+        <a href="@Url.Action("Index","ActionTrackingReport")" class="btn btn-flat btn-lg me-2"><i class="fa-solid fa-arrow-left"></i></a>
+        <div class="text-truncate">
+            View Action Tracking
+        </div>
+
+    </div>
+    <div class="ms-auto flex-shrink-0 flex-grow-0 ">
+        <span class="badge text-bg-secondary me-2">@Model.ActId</span>
+    </div>
+
+    
+</div>
+
+
+<div class="p-4 pt-0">
+    <div class="accordion mb-4" id="accordionExample2" style="margin-left:-1px;margin-right:-1px">
+        <div class="accordion-item" style="border-radius:0">
+            <h2 class="accordion-header" id="headingOne" style="border-radius:0">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="border-radius:0">
+                    Corrective Preventive Action Request
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample2" style="border-radius:0">
+                <div class="accordion-body">
+                    
+                    @Html.Partial("View/_View-Form")
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="accordion" id="accordionExample">
+
+        <div class="accordion-item" style="border-radius:0">
+            <h2 class="accordion-header" id="headingTwo" style="border-radius:0">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="border-radius:0">
+                    List Action
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body p-0">
+                    @Html.Partial("View/_View-CaList")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+﻿@using Actris.Web.Extensions
+@using Actris.Abstraction.Model.View;
+@model Actris.Abstraction.Model.Dto.TxCaDto
+
+@if (Model.State == FormState.NeedAction)
+{
+   @Html.Partial("_Form-Button-NeedAction")
+}
+else if (Model.State == FormState.NeedApproval)
+{
+   @Html.Partial("_Form-Button-NeedApproval")
+}
+else if (Model.State == FormState.Overdue)
+{
+   @Html.Partial("_Form-Button-Overdue")
+}

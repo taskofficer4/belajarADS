@@ -1,0 +1,114 @@
+﻿@using Actris.Abstraction.Model.View
+@using Newtonsoft.Json
+@model GridListModel
+
+
+<thead>
+   <tr>
+      <th>
+         <div style="width:150px !important"></div>
+      </th>
+      @foreach (var column in Model.ColumnDefinitions.Where(o => o.Type != ColumnType.Id && o.Type != ColumnType.Hidden))
+      {
+         var isFiltered = Model.FilterList.AnyFilter(column.Id);
+         var filteredCls = isFiltered ? "filtered" : "";
+         var width = "100%";
+         if (column.Width.HasValue)
+         {
+            width = column.Width + "px";
+         }
+         if (column.Type == ColumnType.Html)
+         {
+
+            <th>
+
+               <div class="column-title no-action" style="width: @width">
+                  <div>
+
+                     @column.Name
+                  </div>
+               </div>
+            </th>
+         }
+         else
+         {
+            <th class="dropdown">
+               <div class="column-title @filteredCls" data-bs-toggle="dropdown" data-boundary="viewport" style="width: @width">
+                  <div>
+                     @column.Name
+                     @if (Model.FilterList.OrderBy == $"{column.Id} asc")
+                     {
+                        <i class="fa-solid fa-arrow-up ms-1"></i>
+                     }
+                     else if (Model.FilterList.OrderBy == $"{column.Id} desc")
+                     {
+                        <i class="fa-solid fa-arrow-down ms-1"></i>
+                     }
+                  </div>
+
+
+
+               </div>
+               <div class="dropdown-menu" style="width: 250px">
+
+                  <a class="dropdown-item d-flex align-items-center pe-2" href="#" onclick="@(Model.GridJsVar).setOrderBy('@column.Id', 'asc')">
+                     <i class="fa fa-arrow-up-z-a"></i> Sort Ascending (A-Z)
+
+                     @if (Model.FilterList.OrderBy == $"{column.Id} asc")
+                     {
+                        <i class="fa fa-check ms-auto"></i>
+                     }
+
+                  </a>
+
+                  <a class="dropdown-item d-flex align-items-center pe-2" href="#" onclick="@(Model.GridJsVar).setOrderBy('@column.Id', 'desc')">
+                     <i class="fa fa-arrow-down-z-a"></i> Sort Descending (Z-A)
+                     @if (Model.FilterList.OrderBy == $"{column.Id} desc")
+                     {
+                        <i class="fa fa-check ms-auto"></i>
+                     }
+
+                  </a>
+
+                  <div class="dropdown-divider"></div>
+
+                  @if (isFiltered)
+                  {
+                     <a class="dropdown-item fw-semibold" href="#" onclick="@(Model.GridJsVar).clearFilter('@column.Id')"> <i class="fa fa-xmark"></i>Clear Filter from @column.Name</a>
+                  }
+                  else
+                  {
+                     <a class="dropdown-item disabled" href="#"> <i class="fa fa-xmark"></i>Clear Filter from @column.Name</a>
+                  }
+
+
+                  @if (column.Type == ColumnType.String)
+                  {
+                     <a class="dropdown-item" href="#" onclick="@(Model.GridJsVar).textFilter.showDialog('@column.Id')">
+                        <i class="fa fa-pen-to-square"></i>Text Filter
+                     </a>
+                  }
+                  else if (column.Type == ColumnType.Number)
+                  {
+                     <a class="dropdown-item" href="#" onclick="@(Model.GridJsVar).numberFilter.showDialog('@column.Id')">
+                        <i class="fa fa-pen-to-square"></i>Number Filter
+                     </a>
+                  }
+                  else if (column.Type == ColumnType.Date)
+                  {
+                     <a class="dropdown-item" href="#" onclick="@(Model.GridJsVar).dateFilter.showDialog('@column.Id')">
+                        <i class="fa fa-calendar"></i>Date Filter
+                     </a>
+                  }
+
+
+                  <a class="dropdown-item" href="#" onclick="@(Model.GridJsVar).adaptiveFilter.showDialog('@column.Id')">
+                     <i class="fa fa-filter"></i>Filter..
+                  </a>
+               </div>
+            </th>
+         }
+
+      }
+   </tr>
+</thead>

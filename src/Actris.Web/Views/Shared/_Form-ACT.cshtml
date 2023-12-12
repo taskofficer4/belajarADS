@@ -1,0 +1,335 @@
+﻿@using Actris.Web.Extensions
+@using Actris.Abstraction.Model.View
+@using Actris.Abstraction.Enum;
+@model Actris.Abstraction.Model.Dto.TxActDto
+
+@{
+   var disabledInput = "";
+   var viewOnly = false;
+   if (Model.FormState == FormState.View
+      || Model.FormState == FormState.NeedAction
+      || Model.FormState == FormState.NeedApproval
+      || Model.FormState == FormState.Overdue)
+   {
+      disabledInput = "disabled";
+      viewOnly = true;
+   }
+}
+
+<div class="accordion mb-4" id="accordionExample2">
+   <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Corrective Preventive Action Request
+         </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample2">
+         <div class="accordion-body">
+
+            <fieldset @disabledInput>
+               @Html.HiddenFor(o => o.ObservationID)
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label ">ACT ID</label>
+                  <div class="col-sm-9">
+                     @Html.TextBoxFor(o => o.ActionTrackingID, new { @class = "form-control", placeholder = "Will be generated after submission", @readonly = true })
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label is-required">ACT Source</label>
+                  <div class="col-sm-9">
+                     @if (disabledInput != "")
+                     {
+                        @PageComponent.DropdownViewOnly(Model.ActionTrackingSource)
+                     }
+                     else
+                     {
+                        @Html.DropDownListFor(model => model.ActionTrackingSourceKey,
+                      Model.Lookup.ActSource.ToSelectList(), "",
+                      new
+                        {
+                                    @class = "form-select init-select2",
+                              placeholder = "Select ACT Source"
+                        })
+                        @Html.ValidationMessageFor(model => model.ActionTrackingSourceKey)
+                     }
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label" for="AdditionalData">Reference ID</label>
+                  <div class="col-sm-9">
+                     @Html.TextBoxFor(o => o.AdditionalData, new { @class = "form-control", placeholder = "Reference ID" })
+                     @Html.ValidationMessageFor(model => model.AdditionalData)
+                  </div>
+               </div>
+
+               @*ISSUE DATE*@
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label is-required">Issue Date</label>
+                  <div class="col-sm-9">
+                     <div class="input-group" style="max-width:253px">
+                        @Html.TextBoxFor(o => o.IssueDate, new
+                       {
+                           @class = "form-control init-datepicker",
+                           placeholder = "Issue Date",
+                           data_date_end_date = "0d",
+                           data_date_today_btn = "linked",
+                           data_date_today_highlight = "true"
+                       })
+                        <span class="input-group-text input-group-right"><i class="fa-regular fa-calendar"></i></span>
+                     </div>
+                     @Html.ValidationMessageFor(model => model.IssueDate)
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label is-required">Finding Description</label>
+                  <div class="col-sm-9">
+                     @Html.TextAreaFor(model => model.FindingDesc, new
+                     {
+                         rows = "4",
+                         placeholder = "Finding Description",
+                         @class = "form-control",
+                         maxLength = "1000"
+                     })
+                     <div class="d-flex justify-content-between">
+                        @Html.ValidationMessageFor(model => model.FindingDesc)
+                        <div class="fs-small ms-auto text-muted" style="margin-top: 0.25rem; "><span id="FindingDesc_counter">0</span>/1000</div>
+
+                     </div>
+
+
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label is-required">SHU / Regional</label>
+                  <div class="col-sm-9">
+
+                     @*RADIO BUTTON*@
+                     <div class="form-check mb-2 pt-2">
+                        @Html.RadioButtonFor(o => o.TypeShuRegion, "SHU", new { @class = "form-check-input", id = "TypeShu", disabled = "true" })
+                        <label class="form-check-label ps-1" for="TypeShu">Subholding Upstream</label>
+                     </div>
+                     <div class="form-check">
+                        @Html.RadioButtonFor(o => o.TypeShuRegion, "Regional", new { @class = "form-check-input", id = "TypeRegional", disabled = "true" })
+                        <label class="form-check-label ps-1" for="TypeRegional">Regional</label>
+                     </div>
+                     <div class="pt-2">
+                        @Html.ValidationMessageFor(model => model.TypeShuRegion)
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label is-required">Directorate / Regional</label>
+                  <div class="col-sm-9">
+                     @if (disabledInput != "")
+                     {
+                        @PageComponent.DropdownViewOnly(Model.DirectorateRegionalDesc)
+                     }
+                     else
+                     {
+                        @Html.DropDownListFor(model => model.DirectorateRegionalID,
+                       Model.Lookup.DirectorateRegional.ToSelectList(), "",
+                       new
+                       {
+                           @class = "form-select init-select2",
+                           placeholder = "Select Directorate / Regional",
+                           onchange = $"loadDivisiZonaList()"
+                       })
+                        @Html.ValidationMessageFor(model => model.DirectorateRegionalID)
+                     }
+
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label is-required">Division / Zona</label>
+                  <div class="col-sm-9">
+                     @if (disabledInput != "")
+                     {
+                        @PageComponent.DropdownViewOnly(Model.DivisiZonaDesc)
+                     }
+                     else
+                     {
+                        @Html.DropDownListFor(model => model.DivisiZonaID,
+                      Model.Lookup.DivisionZona.ToSelectList(), "",
+                      new
+                      {
+                         @class = "form-select init-select2",
+                         placeholder = "Select Divison / Zona",
+                         onchange = $"loadCompanyList()"
+                      })
+                        @Html.ValidationMessageFor(model => model.DivisiZonaID)
+                     }
+
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label is-required">Company</label>
+                  <div class="col-sm-9">
+                     @if (disabledInput != "")
+                     {
+                        @PageComponent.DropdownViewOnly(Model.CompanyName)
+                     }
+                     else
+                     {
+                        @Html.DropDownListFor(model => model.CompanyCode,
+                         Model.Lookup.Company.ToSelectList(), "",
+                         new
+                              {
+                            @class = "form-select init-select2",
+                            placeholder = "Select Company",
+                            onchange = $"loadWilayahKerjaList();loadLocationList();"
+                         })
+                        @Html.ValidationMessageFor(model => model.CompanyCode)
+                     }
+
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label is-required">Wilayah Kerja</label>
+                  <div class="col-sm-9">
+                     @if (disabledInput != "")
+                     {
+                        @PageComponent.DropdownViewOnly(Model.WilayahkerjaDesc)
+                     }
+                     else
+                     {
+                        @Html.DropDownListFor(model => model.WilayahkerjaID,
+                       Model.Lookup.WilayahKerja.ToSelectList(), "",
+                       new
+                        {
+                              @class = "form-select init-select2",
+                              placeholder = "Select Wilayah Kerja"
+                     })
+                        @Html.ValidationMessageFor(model => model.WilayahkerjaID)
+                     }
+
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label is-required">Location</label>
+                  <div class="col-sm-9">
+                     @if (disabledInput != "")
+                     {
+                        @PageComponent.DropdownViewOnly(Model.WilayahkerjaDesc)
+                     }
+                     else
+                     {
+                        @Html.DropDownListFor(model => model.LocationID,
+                       Model.Lookup.LocationCompany.ToSelectList(), "",
+                       new
+                            {
+                                @class = "form-select init-select2",
+                           placeholder = "Select Location"
+                    })
+                        @Html.ValidationMessageFor(model => model.LocationID)
+                     }
+
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label is-required">Sub-Location</label>
+                  <div class="col-sm-9">
+                     @Html.TextBoxFor(o => o.SubLocation, new { @class = "form-control", placeholder = "Sub Location" })
+                     @Html.ValidationMessageFor(model => model.SubLocation)
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label">Location Status</label>
+                  <div class="col-sm-9">
+                     @if (disabledInput != "")
+                     {
+                        @PageComponent.DropdownViewOnly(Model.WilayahkerjaDesc)
+                     }
+                     else
+                     {
+                        @Html.DropDownListFor(model => model.LocationStatusID,
+                      Model.Lookup.LocationStatus.ToSelectList(), "",
+                      new
+                           {
+                               @class = "form-select init-select2",
+                          placeholder = "Select Location Status"
+                   })
+                     }
+
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label">Not Comply to <span style="font-size:11px">(optional)</span></label>
+                  <div class="col-sm-9">
+                     @Html.TextAreaFor(model => model.Nct, new
+                     {
+                                             placeholder = "Not Comply to",
+                                              @class = "form-control",
+                                              maxLength = "1000"
+                     })
+
+                     <div class="d-flex justify-content-between">
+                        @Html.ValidationMessageFor(model => model.Nct)
+                        <div class="fs-small ms-auto text-muted" style="margin-top: 0.25rem; "><span id="Nct_counter">0</span>/1000</div>
+
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label">Root Cause Analysis  <span style="font-size:11px">(optional)</span></label>
+                  <div class="col-sm-9">
+                     @Html.TextAreaFor(model => model.Rca, new
+                     {
+                                             placeholder = "Root Cause Analysis",
+                                               @class = "form-control",
+                                               maxLength = "1000"
+                     })
+                     <div class="d-flex justify-content-between">
+                        @Html.ValidationMessageFor(model => model.Rca)
+                        <div class="fs-small ms-auto text-muted" style="margin-top: 0.25rem; "><span id="Rca_counter">0</span>/1000</div>
+                     </div>
+
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label">Confidential </label>
+                  <div class="col-sm-9 col-form-label">
+
+                     <div class="form-check">
+                        @Html.CheckBoxFor(o => o.IsConfidential, new { @class = "form-check-input" })
+                        <label class="cursor-pointer" for="IsConfidential">
+                           Yes
+                        </label>
+                     </div>
+
+
+
+                  </div>
+               </div>
+               <div class="renderAttachment">
+                  @{
+                     Html.RenderAction("AttachmentSection", "Attachment", new
+                     {
+                        Area = "",
+                        documentType = DocumentTypeEnum.ACT,
+                        projectPhase = ProjectPhaseEnum.Initiator,
+                        attachmentList = Model.Attachments,
+                        viewOnly = viewOnly
+                     });
+                  }
+               </div>
+            </fieldset>
+         </div>
+
+      </div>
+   </div>
+
+</div>

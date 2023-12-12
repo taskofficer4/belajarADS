@@ -1,0 +1,138 @@
+﻿@using Actris.Abstraction.Model.View
+@using Newtonsoft.Json
+@model GridListModel
+
+
+@{
+    int firstIndex = ((Model.FilterList.Page - 1) * Model.FilterList.Size) + 1;
+    int lastIndex = Model.FilterList.Page * Model.FilterList.Size;
+
+    if (lastIndex > Model.FilterList.TotalItems)
+    {
+        lastIndex = Model.FilterList.TotalItems;
+    }
+    int totalItem = Model.FilterList.TotalItems;
+    var summaryLabel = $"Showing {firstIndex}-{lastIndex} of {totalItem} items";
+
+
+    int pageCount = (Model.FilterList.TotalItems - 1) / Model.FilterList.Size + 1;
+
+    // untuk kondisi prev btn
+    var disablePrevBtn = "";
+    if (Model.FilterList.Page == 1)
+    {
+        disablePrevBtn = "disabled";
+    }
+
+    // untuk kondisi next btn
+    var disableNextBtn = "";
+    if (Model.FilterList.Page == pageCount)
+    {
+        disableNextBtn = "disabled";
+    }
+
+    var selected10 = "";
+    var selected25 = "";
+    var selected50 = "";
+    if (Model.FilterList.Size == 10)
+    {
+        selected10 = "selected";
+    }
+    else if (Model.FilterList.Size == 25)
+    {
+        selected25 = "selected";
+    }
+    else if (Model.FilterList.Size == 50)
+    {
+        selected50 = "selected";
+    }
+
+    // max page
+    var maxPageBtn = 13;
+    var isPaginationAsDropdown = false;
+    if (pageCount > maxPageBtn)
+    {
+        isPaginationAsDropdown = true;
+    }
+}
+
+@if (Model.FilterList.TotalItems > 0)
+{
+    <div class="grid-footer">
+
+
+        <div class="d-flex">
+            <div class="d-flex align-items-center me-2">
+                <div class="me-2">Size</div>
+                <select class="form-select form-select-sm pe-0" style="width:60px" onchange="@(Model.GridJsVar).onPageSizeChange(this)">
+                    <option value="10" @selected10>10</option>
+                    <option value="25" @selected25>25</option>
+                    <option value="50" @selected50>50</option>
+                </select>
+                <div class="ms-3" data-total="@Model.FilterList.TotalItems">
+                    @summaryLabel
+                </div>
+            </div>
+
+        </div>
+
+        @if (isPaginationAsDropdown)
+        {
+            <div class="d-flex align-items-center">
+                <a class="btn  btn-secondary btn-sm @disablePrevBtn" @disablePrevBtn onclick="@(Model.GridJsVar).onPageChange(@Model.FilterList.Page-1)"><i class="fa-solid fa-chevron-left"></i> Prev</a>
+                <select class="form-select form-select-sm pe-0 mx-2 " style="width:80px" onchange="@(Model.GridJsVar).onPageChange(this.options[this.selectedIndex].value)">
+                    @for (int i = 1; i <= pageCount; i++)
+                    {
+                        if (i == Model.FilterList.Page)
+                        {
+                            <option value="@i" selected>@i</option>
+                        }
+                        else
+                        {
+                            <option value="@i" >@i</option>
+                        }
+
+                    }
+                </select>
+                <a class="btn  btn-secondary btn-sm @disableNextBtn" @disableNextBtn onclick="@(Model.GridJsVar).onPageChange(@Model.FilterList.Page+1)">Next <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+        }
+        else
+        {
+            <ul class="pagination justify-content-end mb-0">
+                <li class="page-item @disablePrevBtn">
+                    <a class="page-link" href="#" tabindex="-1" onclick="@(Model.GridJsVar).onPageChange(@Model.FilterList.Page-1)"><i class="fa-solid fa-chevron-left"></i></a>
+                </li>
+
+                @for (int i = 1; i <= pageCount; i++)
+                {
+                    if (i == Model.FilterList.Page)
+                    {
+                        <li class="page-item active"><a class="page-link" href="#">@i</a></li>
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" href="#" onclick="@(Model.GridJsVar).onPageChange(@i)">@i</a></li>
+                    }
+                }
+
+
+                <li class="page-item  @disableNextBtn">
+                    <a class="page-link" href="#" onclick="@(Model.GridJsVar).onPageChange(@Model.FilterList.Page+1)"><i class="fa-solid fa-chevron-right"></i></a>
+                </li>
+            </ul>
+        }
+
+    </div>
+}
+
+@*LOADING INDICATOR*@
+<div class="grid-loading-overlay">
+    <div>
+        <div>
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>

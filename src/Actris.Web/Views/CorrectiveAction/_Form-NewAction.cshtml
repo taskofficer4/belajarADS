@@ -1,0 +1,81 @@
+﻿@using Actris.Web.Extensions
+@using Actris.Abstraction.Model.View;
+@using Actris.Abstraction.Enum;
+@model Actris.Abstraction.Model.Dto.TxCaDto
+
+@{ 
+   var disabled = "";
+   var isViewOnly = false;
+   if (Model.State == FormState.NeedApproval)
+   {
+      disabled = "disabled";
+      isViewOnly = true;
+   }
+}
+
+
+<div class="accordion mb-4" id="accordionExample2">
+   <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Create New Action
+         </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample2">
+         <div class="accordion-body">
+
+
+            <fieldset @disabled>
+
+               <div class="row mb-3">
+                  <label class="col-sm-3  col-form-label is-required">Plan of Correction Action</label>
+                  <div class="col-sm-9">
+                     @Html.TextAreaFor(model => model.FollowUpPlan, new
+                                {
+                                    rows = "4",
+                                    placeholder = "Recomendation",
+                                    @class = "form-control",
+                                    maxLength = "1000"
+                                })
+                     <div class="d-flex justify-content-between">
+                        @Html.ValidationMessageFor(model => model.FollowUpPlan)
+                        <div class="fs-small ms-auto text-muted" style="margin-top: 0.25rem; "><span id="FollowUpPlan_counter">0</span>/1000</div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row mb-3">
+                  <label class="col-sm-3  col-form-label is-required">Date of Completion</label>
+                  <div class="col-sm-9">
+                     <div class="input-group" style="max-width:253px">
+                        @Html.TextBoxFor(o => o.CompletionDate, new
+                          {
+                              @class = "form-control init-datepicker",
+                              placeholder = "Date of Completion",
+                              data_date_today_btn = "linked",
+                              data_date_today_highlight = "true"
+                          })
+                        <span class="input-group-text input-group-right"><i class="fa-regular fa-calendar"></i></span>
+                     </div>
+                     @Html.ValidationMessageFor(model => model.CompletionDate)
+                  </div>
+               </div>
+
+               <div class="renderAttachment">
+                  @{
+                     Html.RenderAction("AttachmentSection", "Attachment", new
+                     {
+                        Area = "",
+                        documentType = DocumentTypeEnum.CA,
+                        projectPhase = ProjectPhaseEnum.FollowUp,
+                        attachmentList = Model.Attachments,
+                        viewOnly = isViewOnly
+                     });
+                  }
+               </div>
+            </fieldset>
+         </div>
+      </div>
+   </div>
+</div>
+
+

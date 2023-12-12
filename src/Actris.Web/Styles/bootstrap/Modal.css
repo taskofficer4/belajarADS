@@ -1,0 +1,118 @@
+﻿.modal-content {
+  left: 0;
+  transition: all 0.3s ease-out;
+  position: absolute;
+  --bs-modal-border-radius: 4px;
+}
+
+.modal-toleft {
+  left: calc(-100% - 30px);
+}
+
+.modal-block-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.0509803922);
+  display: none;
+  z-index: 3;
+  cursor: not-allowed;
+}
+
+.modal-lookup,
+.modal-child-form {
+  position: absolute;
+  left: 200px;
+  transition: all 0.3s ease-out;
+  visibility: hidden;
+  opacity: 0;
+}
+.modal-lookup.show,
+.modal-child-form.show {
+  left: 0;
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-lookup-sm {
+  position: absolute;
+  left: 75%;
+  transition: all 0.3s ease-out;
+  visibility: hidden;
+  opacity: 0;
+  width: 400px;
+}
+.modal-lookup-sm.show {
+  left: 50%;
+  transform: translate(-50%, 0);
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-toleft-sm {
+  left: calc(-100% + 160px);
+}
+
+.warning-circle {
+  background: #ffc7c7;
+  border-radius: 41px;
+  width: 30px;
+  height: 30px;
+  color: #dd0000;
+  text-align: center;
+  font-size: 17px;
+  line-height: 26px;
+  margin-right: 15px;
+}
+
+@media (min-width: 576px) {
+  .modal-sm {
+    --bs-modal-width: 400px;
+  }
+}
+.modal-dialog-expand-animation {
+  transition: all 0.1s ease-out !important;
+}
+
+.modal-height-full {
+  height: 100%;
+}
+
+.modal.fade .modal-dialog {
+  transition: transform 0.15s ease-out;
+  transform: scale(0.9);
+}
+
+.modal.show .modal-dialog {
+  transform: none;
+}
+
+.modal-dialog-scrollable .modal-body {
+  overflow-y: overlay;
+}
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar {
+  margin: 10px;
+  padding: 10px;
+  right: 10px;
+  height: 8px;
+  width: 16px;
+  background: none;
+}
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar-track {
+  background: none;
+  border-radius: 10px;
+}
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar-thumb {
+  border: 4px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 9999px;
+  background-color: #AAAAAA;
+}
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar-thumb:hover {
+  border: 4px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 9999px;
+  background-color: rgba(32, 33, 36, 0.5);
+}

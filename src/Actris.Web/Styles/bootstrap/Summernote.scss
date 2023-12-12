@@ -1,0 +1,56 @@
+﻿
+
+.note-editor.note-airframe, .note-editor.note-frame {
+    border-radius:2px;
+    &:focus-within {
+        border: 1px solid var(--main-primary);
+        box-shadow: 0 0 0 0.1rem rgb(13 110 253 / 25%);
+        border-radius: 2px;
+    }
+}
+
+.note-btn-group .note-btn {
+   
+    border: none;
+    background: none;
+}
+
+.note-toolbar {
+    background: #fff;
+}
+
+
+
+[class*=" note-icon"]:before, [class^=note-icon]:before {
+    font-family: "Font Awesome 6 Free";
+    color: var(--component-secondary);
+    line-height: 1;
+    font-weight: 900;
+}
+
+.note-icon-bold:before {
+    content: "\f032";
+   
+}
+
+.note-icon-italic:before {
+    content: "\f033";
+  
+}
+
+.note-icon-underline:before {
+    content: "\f0cd";
+   
+}
+
+.note-icon-strikethrough:before {
+    content: "\f0cc";
+}
+
+.note-icon-unorderedlist:before {
+    content: "\f0ca";
+}
+
+.note-icon-orderedlist:before {
+    content: "\f0cb";
+}

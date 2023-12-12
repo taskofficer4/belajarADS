@@ -1,0 +1,34 @@
+﻿.alert {
+    .alert-left-part,
+    .alert-right-part {
+        i {
+            font-size: 20px;
+        }
+    }
+
+    .alert-left-part {
+        margin-right: 10px;
+    }
+
+    .alert-right-part {
+        margin-left: 10px;
+    }
+
+    .alert-close-btn {
+        margin-top: -5px;
+        margin-bottom: -5px;
+        color: #989898;
+    }
+}
+
+.alert-warning {
+    --bs-alert-color: #474543;
+    --bs-alert-bg: #fff7e6;
+    --bs-alert-border-color: #fa8c16;
+}
+
+.alert-info {
+    --bs-alert-color: #5ca0d1;
+    --bs-alert-bg: var(--light-blue);
+    --bs-alert-border-color: var(--main-primary);
+}

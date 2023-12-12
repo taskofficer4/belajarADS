@@ -1,0 +1,14 @@
+﻿@using Actris.Abstraction.Model.View
+@using Newtonsoft.Json
+@model GridListModel
+
+@foreach (var row in Model.Rows)
+{
+    <tr onclick="selectLookupRow('@row.Id','@row.Columns[0].Value')" class="pointer" title="Click to select">
+        @foreach (var column in row.Columns)
+        {
+            <td>@column.Text</td>
+
+        }
+    </tr>
+}

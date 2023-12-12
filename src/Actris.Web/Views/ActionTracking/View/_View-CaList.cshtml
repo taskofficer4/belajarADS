@@ -1,0 +1,63 @@
+﻿@model Actris.Abstraction.Model.Dto.ActViewDto
+
+
+@*<div class="table-responsive" style="min-height:0">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="valign-mid">Approve</th>
+                <th class="valign-mid">Reject</th>
+                <th class="valign-mid">Remark</th>
+                <th class="valign-mid">CA ID</th>
+                <th class="valign-mid">Department</th>
+                <th class="valign-mid">Recomendation</th>
+                <th class="valign-mid">PIC</th>
+                <th class="valign-mid">Priority Level</th>
+                <th class="valign-mid">Pending Action</th>
+                <th class="valign-mid">Status</th>
+
+            </tr>
+
+        </thead>
+
+
+
+        @foreach (var ca in Model.ListAction)
+        {
+            <tr>
+                <td>@ca.IsApprove</td>
+                <td>@ca.IsReject</td>
+                <td>@ca.Remarks</td>
+                <td>@ca.CaId</td>
+                <td>@ca.Department</td>
+                <td>@ca.Recomendation</td>
+                <td>
+
+                    <ul>
+
+
+                        @foreach (var pic in ca.ListPic)
+                        {
+                            <li>@pic</li>
+                        }
+                    </ul>
+                </td>
+                <td>@ca.PriorityLevel</td>
+                <td>@ca.PendingAction</td>
+                <td>@ca.Status</td>
+            </tr>
+        }
+
+
+
+
+    </table>
+</div>*@
+
+@if (Model.ListAction.Any() == false)
+{
+    <div class="text-center pt-1 mb-5">
+        <img src="~/Assets/Grid/empty-grid.jpg" style="width:250px;margin-top:20px" />
+        <div class="text-muted mt-2">No Result were found</div>
+    </div>
+}

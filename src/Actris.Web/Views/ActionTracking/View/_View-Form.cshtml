@@ -1,0 +1,128 @@
+﻿@using Actris.Abstraction.Extensions
+@model Actris.Abstraction.Model.Dto.ActionTrackingViewDto
+<form>
+    <fieldset disabled>
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label ">ACT ID</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(o => o.ActId, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label is-required">ACT Source</label>
+            <div class="col-sm-9">
+                <select class="form-select">
+                    <option>@Model.ActSource</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label">Reference ID</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(o => o.ReferenceId, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label is-required">Issue Date</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <input class="form-control" id="ActId" name="ActId" type="text" value="@Model.IssueDate.ToDisplay()">
+                    <span class="input-group-text input-group-right"><i class="fa-regular fa-calendar"></i></span>
+                </div>
+               
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label is-required">Finding Description</label>
+            <div class="col-sm-9">
+                <div class="text-area-view-only">@Model.FindingDescription</div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label is-required">SHU / Regional</label>
+            <div class="col-sm-9">
+                <select class="form-select">
+                    <option>@Model.TypeShuRegion</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label is-required">Directorate / Regional</label>
+            <div class="col-sm-9">
+                <select class="form-select">
+                    <option>@Model.DirectorateRegional</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label is-required">Division / Zona</label>
+            <div class="col-sm-9">
+                <select class="form-select">
+                    <option>@Model.DivisionZona</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label is-required">Company</label>
+            <div class="col-sm-9">
+                <select class="form-select">
+                    <option>@Model.Company</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label is-required">Wilayah Kerja</label>
+            <div class="col-sm-9">
+                <select class="form-select">
+                    <option>@Model.WilayahKerja</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label is-required">Location</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(o => o.Location, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label is-required">Sub-Location</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(o => o.SubLocation, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label">Location Status</label>
+            <div class="col-sm-9">
+                <select class="form-select">
+                    <option>@Model.LocationStatus</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label  class="col-sm-3 col-form-label">Not Comply to <span style="font-size:11px">(optional)</span></label>
+            <div class="col-sm-9">
+                <div class="text-area-view-only">@Model.Nct</div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">Root Cause Analysis  <span style="font-size:11px">(optional)</span></label>
+            <div class="col-sm-9">
+                <div class="text-area-view-only">@Model.Rca</div>
+            </div>
+        </div>
+    </fieldset>
+</form>

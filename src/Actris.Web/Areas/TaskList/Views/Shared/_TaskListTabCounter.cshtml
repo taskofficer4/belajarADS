@@ -1,0 +1,74 @@
+﻿@model Actris.Abstraction.Model.Dto.TaskListTabCounter
+
+@{
+	var urlNeedAction = Url.Action("Index", "NeedAction", new { Area = "TaskList" });
+	var urlNeedApproval = Url.Action("Index", "NeedApproval", new { Area = "TaskList" });
+	var urlOverdue = Url.Action("Index", "Overdue", new { Area = "TaskList" });
+
+	var needActionActiveCls = "btn-outline-primary";
+	if (Model.CurrentTab == "NeedAction")
+	{
+		urlNeedAction = "javascript:;";
+		needActionActiveCls = "btn-primary";
+	}
+
+	var needApprovalActiveCls = "btn-outline-primary";
+	if (Model.CurrentTab == "NeedApproval")
+	{
+		needApprovalActiveCls = "btn-primary";
+		urlNeedApproval = "javascript:;";
+	}
+
+	var overdueActiveCls = "btn-outline-primary";
+	if (Model.CurrentTab == "Overdue")
+	{
+		overdueActiveCls = "btn-primary";
+		urlOverdue = "javascript:;";
+	}
+}
+
+<div class="ms-4">
+	@if (Model.AllowNeedAction)
+	{
+		<a href="@urlNeedAction" class="btn @needActionActiveCls rounded-5 me-2 position-relative">
+			Need Action
+
+			@if (Model.NeedAction > 0)
+			{
+				<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+					@Model.NeedAction
+				</span>
+			}
+
+		</a>
+	}
+	@if (Model.AllowNeedApproval)
+	{
+		<a href="@urlNeedApproval" class="btn rounded-5 @needApprovalActiveCls  me-2 position-relative">
+			Need Approval
+			@if (Model.NeedApproval > 0)
+			{
+				<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+					@Model.NeedApproval
+				</span>
+			}
+
+		</a>
+	}
+
+	@if (Model.AllowOverdue)
+	{
+		<a href="@urlOverdue" class="btn rounded-5 @overdueActiveCls position-relative">
+			Overdue Approval
+
+			@if (Model.Overdue > 0)
+			{
+				<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+					@Model.Overdue
+				</span>
+			}
+
+		</a>
+	}
+
+</div>

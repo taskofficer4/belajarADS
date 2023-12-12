@@ -1,0 +1,88 @@
+﻿@using Actris.Web.Extensions
+@using Actris.Abstraction.Model.View;
+@using Actris.Abstraction.Enum;
+
+@model Actris.Abstraction.Model.Dto.TxCaDto
+@{
+   var disabledForm = "";
+   if (Model.State == FormState.NeedApproval)
+   {
+      disabledForm = "disabled";
+   }
+}
+
+<fieldset @disabledForm>
+   <div class="row mb-3">
+      <label class="col-sm-3  col-form-label is-required">Reason</label>
+      <div class="col-sm-9">
+
+         @Html.TextAreaFor(model => model.OverdueReason, new
+         {
+            rows = "4",
+            placeholder = "Reason",
+            @class = "form-control",
+            maxLength = "1000"
+         })
+         <div class="d-flex justify-content-between">
+            @Html.ValidationMessageFor(model => model.OverdueReason)
+            @PageComponent.TextAreaCounter("OverdueReason")
+         </div>
+
+         @Html.ValidationMessageFor(model => model.ProposedDueDate)
+      </div>
+   </div>
+
+   <div class="row mb-3">
+      <label class="col-sm-3  col-form-label is-required">Impact</label>
+      <div class="col-sm-9">
+
+         @if (disabledForm == "")
+         {
+            @Html.DropDownListFor(model => model.OverdueImpact,
+              Model.Lookup.OverdueImpact.ToSelectList(), "",
+              new
+              {
+                 @class = "form-select init-select2",
+                 placeholder = "Select Impact"
+              })
+            @Html.ValidationMessageFor(model => model.OverdueImpact)
+         }
+         else
+         {
+            @PageComponent.DropdownViewOnly(Model.OverdueImpact)
+         }
+
+      </div>
+   </div>
+
+   <div class="row mb-3">
+      <label class="col-sm-3  col-form-label is-required">Mitigation / Next Step</label>
+      <div class="col-sm-9">
+
+         @Html.TextAreaFor(model => model.OverdueMitigation, new
+         {
+            rows = "4",
+            placeholder = "Mitigation / Next Step",
+            @class = "form-control",
+            maxLength = "1000"
+         })
+         <div class="d-flex justify-content-between">
+            @Html.ValidationMessageFor(model => model.OverdueMitigation)
+            @PageComponent.TextAreaCounter("OverdueMitigation")
+         </div>
+      </div>
+   </div>
+
+   <div class="renderAttachment">
+      @{
+         Html.RenderAction("AttachmentSection", "Attachment", new
+         {
+            Area = "",
+            documentType = DocumentTypeEnum.CA,
+            projectPhase = ProjectPhaseEnum.Overdue,
+            attachmentList = Model.Attachments,
+            viewOnly = false
+         });
+      }
+   </div>
+</fieldset>

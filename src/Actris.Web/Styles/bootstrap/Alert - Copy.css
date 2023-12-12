@@ -1,0 +1,21 @@
+﻿.alert .alert-left-part i,
+.alert .alert-right-part i {
+  font-size: 20px;
+}
+.alert .alert-left-part {
+  margin-right: 10px;
+}
+.alert .alert-right-part {
+  margin-left: 10px;
+}
+.alert .alert-close-btn {
+  margin-top: -5px;
+  margin-bottom: -5px;
+  color: #989898;
+}
+
+.alert-warning {
+  --bs-alert-color: #474543;
+  --bs-alert-bg: #fff7e6;
+  --bs-alert-border-color: #fa8c16;
+}

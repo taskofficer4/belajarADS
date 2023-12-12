@@ -1,0 +1,50 @@
+﻿@using Actris.Abstraction.Model.View
+@using Newtonsoft.Json
+@model GridListModel
+
+@foreach (var row in Model.Rows)
+{
+    var i = 0;
+    <tr>
+
+        @foreach (var column in row.Columns)
+        {
+            i++;
+            if (i == 1)
+            {
+                <td>
+                    <div class="d-flex align-items-center justify-content-between w-100">
+                        @column.Text
+
+                        <div class="dropdown" style="margin-top: -8px; margin-bottom: -8px;">
+                            <button class="btn btn-flat btn-icon btn-rounded" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Action" style="height:35px;">
+                                <i class="fa-solid fa-ellipsis-v "></i>
+                            </button>
+
+                            <ul class="dropdown-menu" data-boundary="window" >
+                                <li><a class="dropdown-item pe-2" href="#" onclick="crud.showReadonlyForm('@row.Id')" ><i class=" fa fa-solid fa-eye"></i> View</a></li>
+                                <li><a class="dropdown-item pe-2" href="#" onclick="crud.showEditForm('@row.Id')"><i class=" fa fa-solid fa-pencil"></i> Edit</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" onclick="crud.showConfirmDelete('@row.Id', '@row.Columns.First().Value')"> <i class="fa fa-regular fa-trash-can text-danger"></i> Delete</a></li>
+                            </ul>
+                         
+                        </div>
+
+
+
+                    </div>
+
+                </td>
+
+            }
+            else
+            {
+
+
+                <td>@column.Text</td>
+
+            }
+        }
+    
+    </tr>
+}

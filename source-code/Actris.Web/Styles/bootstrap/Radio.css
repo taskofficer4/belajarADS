@@ -1,0 +1,20 @@
+﻿.form-check input[type=radio].form-check-input {
+  height: 1.3rem;
+  width: 1.3rem;
+}
+.form-check .radio-2line {
+  display: flex;
+  flex-direction: column;
+  padding-left: 5px;
+  cursor: pointer;
+}
+.form-check .radio-2line .form-check-label {
+  font-size: 1rem;
+  color: #000;
+}
+.form-check .radio-2line .radio-description {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #919191;
+  cursor: pointer;
+}

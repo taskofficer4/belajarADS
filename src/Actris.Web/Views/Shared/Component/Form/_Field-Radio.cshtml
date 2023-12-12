@@ -1,0 +1,42 @@
+﻿@using Actris.Abstraction.Model.View;
+@model Field
+
+@{
+    var field = Model;
+}
+
+@if (field.HasError)
+{
+    <div class="alert alert-info py-2 fw-semibold">
+
+        <i class="fa-solid fa-circle-info me-1"></i> @field.ErrorMessage
+    </div>
+}
+
+<div class="vstack gap-1">
+    @{
+        var radioIdx = 0;
+
+    }
+    @foreach (var item in field.LookUpList.Items)
+    {
+        string checkedAttr = "";
+        if (item.Value == field.Value?.ToString())
+        {
+            checkedAttr = "checked";
+        }
+
+        var radioValueId = $"{field.Id}_{radioIdx++}";
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="@field.Id" id="@radioValueId" value="@item.Value" @checkedAttr>
+            <div class="radio-2line">
+                <label class="form-check-label" for="@radioValueId">@item.Text</label>
+                <label class="radio-description" for="@radioValueId">
+                    @item.Description
+                </label>
+            </div>
+        </div>
+    }
+
+
+</div>

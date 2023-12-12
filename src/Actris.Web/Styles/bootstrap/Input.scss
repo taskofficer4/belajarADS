@@ -1,0 +1,160 @@
+﻿.form-control {
+    border-radius: 2px;
+    border-color: #bdbdbd;
+}
+
+.form-control:focus {
+    border-color: var(--main-primary);
+    box-shadow: 0 0 0 0.1rem rgb(13 110 253 / 25%);
+}
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--component-secondary);
+    opacity: 1; /* Firefox */
+}
+
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: var(--component-secondary);
+}
+
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+    color: var(--component-secondary);
+}
+
+
+.form-label {
+    &.is-required{
+        &::before{
+            content:'*';
+            color:red;
+            margin-right:3px;
+        }
+    }
+}
+
+.col-form-label.is-required::after {
+    content: '*';
+    color: red;
+    margin-left: 3px;
+}
+
+.form-select {
+    &.readonly {
+        background-color: #fff;
+    }
+
+    &.select-lookup {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 2 6,6 -6,6'/%3e%3c/svg%3e");
+
+        &.lookup-active {
+            border-color: #86b7fe;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+        }
+    }
+}
+
+
+.form-label {
+
+    font-weight: 600;
+}
+
+
+
+.form-control.input-validation-error {
+    border-color: #dc3545;
+    padding-right: calc(1.5em + 0.75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.field-validation-error {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+}
+
+
+.previewImg {
+    width: 100%;
+    border: 1px solid var(--component-border);
+    padding: 6px 6px;
+    margin-top: 10px;
+    border-radius: 4px;
+
+    > div {
+        display: flex;
+        align-items: center;
+
+        a {
+            flex-shrink: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+
+.attachment-list {
+
+    .attachment-item {
+        border: 1px solid var(--component-border);
+        padding: 6px 10px;
+        margin:6px 0;
+
+    }
+}
+
+
+.form-select {
+  
+    border-radius: 2px;
+    border-color: #bdbdbd;
+}
+
+.form-select:focus {
+    border-color: var(--main-primary);
+    box-shadow: 0 0 0 0.1rem rgb(13 110 253 / 25%);
+}
+
+
+
+.input-group-right {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    bottom: 1px;
+    pointer-events: none;
+    z-index: 5;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+
+label.is-error{
+    color:red;
+    font-weight:600;
+}
+
+.form-control:read-only {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+.form-control[type=file]:not(:disabled):not([readonly]) {
+   background:none;
+}
+
+.form-control.datepicker:read-only{
+   background-color:white;
+}
+
+input.datepicker.form-control:disabled {
+   background-color: #e9ecef;
+}

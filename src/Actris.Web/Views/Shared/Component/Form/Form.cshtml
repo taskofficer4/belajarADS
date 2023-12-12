@@ -1,0 +1,85 @@
+﻿@using Actris.Abstraction.Model.View;
+@model FormDefinition
+
+@{
+    string CurrentControllerName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    var formUrl = CurrentControllerName;
+    var modalTitle = $"Add New {Model.Title}";
+    if (Model.State == FormState.Create)
+    {
+        formUrl = CurrentControllerName + "/Create";
+    }
+    else
+    {
+        modalTitle = $"Edit {Model.Title}";
+        formUrl = CurrentControllerName + "/Edit";
+    }
+
+}
+
+
+<form class="modal-content" action="@formUrl" method="post" onsubmit="event.preventDefault()" form-state="@Model.State" autocomplete="off">
+
+    <div class="modal-header">
+        <h5 class="modal-title">@modalTitle </h5>
+        <div class="d-flex align-items-center">
+            <button type="button" onclick="crud.toggleModalSize(this)" class="btn btn-flat">
+                <i class="fa-solid fa-expand"></i>
+            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+    </div>
+    <div class="modal-body">
+        <div>
+            @{
+                var formSectionIdx = 0;
+            }
+            @foreach (var fieldSection in Model.FieldSections)
+            {
+                formSectionIdx++;
+
+                if (string.IsNullOrEmpty(fieldSection.SectionName))
+                {
+                    <div class="mb-3">
+                        @Html.Partial("Component/Form/_Fields", fieldSection.Fields)
+                    </div>
+                }
+                else
+                {
+                    <div class="accordion mb-3">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#formSection_@formSectionIdx">
+                                    @fieldSection.SectionName
+                                </button>
+                            </h2>
+                            <div id="formSection_@formSectionIdx" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    @Html.Partial("Component/Form/_Fields", fieldSection.Fields)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" style="width:90px">Cancel</button>
+        <button type="submit" class="btn btn-primary btn-will-loading" style="width:90px">Submit</button>
+    </div>
+    <div class="modal-block-overlay"></div>
+</form>
+
+
+@* PREPARE MODAL GRID LOOKUP*@
+<div class="modal-content modal-lookup">
+    <div class="modal-header">
+        <h5 class="modal-title">Select <span id="lookup-title">Select Item</span></h5>
+        <button type="button" class="btn-close" onclick="hideLookupModal()"></button>
+    </div>
+    <div class="modal-body">
+
+    </div>
+</div>

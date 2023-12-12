@@ -1,0 +1,45 @@
+﻿@using Actris.Web.Extensions
+@using Actris.Abstraction.Model.View;
+@using Actris.Abstraction.Enum;
+@model Actris.Abstraction.Model.Dto.TxCaDto
+
+
+<div id="ModalConfirmApproval" class="modal fade" data-bs-backdrop="static" tabindex="-1" data-bs-keyboard="false">
+
+   <div class="modal-dialog modal-md modal-dialog-scrollable  modal-dialog-centered modal-dialog-expand-animation append-here">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Approval Note</h5>
+            <div class="d-flex align-items-center">
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+         </div>
+         <div class="modal-body">
+            <fieldset>
+               <div class="row">
+                  <label class="col-sm-3  col-form-label is-required">Remarks</label>
+                  <div class="col-sm-9">
+                     <textarea class="form-control"
+                               cols="20"
+                               id="ConfirmRemark"
+                               maxlength="1000"
+                               name="Remarks"
+                               placeholder="Remarks"
+                               onkeyup="confirmRemarkOnChange()"
+                               rows="4">
+                     </textarea>
+                     <div class="d-flex justify-content-between">
+                        <div class="fs-small ms-auto text-muted" style="margin-top: 0.25rem; "><span id="ConfirmRemark_counter">0</span>/1000</div>
+                     </div>
+                  </div>
+               </div>
+            </fieldset>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" style="width:100px">Cancel</button>
+            <button id="ApprovalSubmitBtn" type="button" class="btn btn-primary btn-will-loading" style="min-width:150px" onclick="onApprovalSubmit()">Approve</button>
+         </div>
+         <div class="modal-block-overlay"></div>
+      </div>
+   </div>
+</div>

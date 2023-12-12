@@ -1,0 +1,24 @@
+﻿@using Actris.Abstraction.Model.View;
+@model Field
+
+@{
+    var field = Model;
+
+    var errorClass = "";
+    if (field.HasError)
+    {
+        errorClass = "is-invalid";
+    }
+
+    string switchChecked = "";
+    if (field.Value != null && (bool)field.Value == true)
+    {
+        switchChecked = "checked";
+    }
+}
+
+<div class="form-check form-switch">
+    <input class="form-check-input @errorClass" type="checkbox" name="@field.Id" id="@field.Id" value="true" @switchChecked>
+    <input type="hidden" value="false" name="@field.Id" />
+    <label class="form-check-label" for="@field.Id">@field.Label</label>
+</div>

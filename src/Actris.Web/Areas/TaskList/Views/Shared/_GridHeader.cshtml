@@ -1,0 +1,40 @@
+﻿@using Actris.Abstraction.Model.View
+@using Newtonsoft.Json
+@model GridListModel
+
+<div class="filter-section">
+   @if (!Model.HideActionButton)
+   {
+      <button class="btn btn-primary me-2" onclick="crud.showCreateForm()">Create <i class="fa fa-plus ms-2"></i></button>
+   }
+
+   @if (!Model.HideExportButton)
+   {
+      <button class="btn btn-secondary" onclick="@(Model.GridJsVar).downloadSpreadsheet(this)">
+         Export Excel
+         <i class="fa-solid fa-download ms-2"></i>
+         <div class="spinner-border spinner-border-sm ms-2" role="status" style="display:none">
+            <span class="visually-hidden">Loading...</span>
+         </div>
+
+      </button>
+   }
+
+   <div class="d-flex align-items-center">
+      <form onsubmit="event.preventDefault();@(Model.GridJsVar).quickFind(this)">
+         <div class="input-group">
+
+            @{
+               var anyFieldKeyword = Model?.FilterList?
+                   .FilterItems?
+                   .FirstOrDefault(o => o.FirstOrDefault()?.Name == "AnyField")?
+                   .FirstOrDefault()?.Value;
+            }
+            <input type="text" class="form-control quickfind" value="@anyFieldKeyword" placeholder="Quick Find">
+            <button class="btn btn-secondary " type="submit"><i class="fa fa-magnifying-glass"></i></button>
+         </div>
+      </form>
+   </div>
+
+
+</div>

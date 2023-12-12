@@ -1,0 +1,41 @@
+﻿@using Actris.Abstraction.Model.Response
+@model User
+
+<header>
+    <div class="mobile-menu">
+        <a href="#" class="btn btn-menu toggle-main-menu-mobile">
+            <i class="fa-solid fa-bars layout-icon-bars-color"></i>
+        </a>
+    </div>
+    <div class="right-side">
+        @*<img src="~/Assets/logo_white.png" />*@
+        <img src="~/Assets/PHE_Logo_Color.png" />
+        <div class="d-flex" style="height: 60%;">
+            <div class="vr" style="opacity: 1;"></div>
+        </div>
+        <div class="brand-name">
+            Application Name
+            @*<img src="~/Assets/logo.svg" style="width:85%;height:85%;display:block;"/>*@
+        </div>
+
+        @if (Model != null)
+        {
+            string role = Model.Roles?.FirstOrDefault()?.Value;
+            <div class="user-info">
+                <div class="user-fullname">
+                    @Model.Name
+                </div>
+                <div class="user-id">
+                    @*@role*@
+                </div>
+            </div>
+            <div class="avatar">@Model.Name[0]</div>
+            <a href="@Url.Action("LogOff", "Account")" class="btn btn-logout" title="Logout">
+
+                <i class="fa-solid fa-arrow-right-from-bracket layout-icon-bars-color"></i>
+            </a>
+        }
+
+
+    </div>
+</header>

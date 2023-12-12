@@ -1,0 +1,44 @@
+﻿@using Actris.Abstraction.Model.View
+@model CrudPage
+
+@{
+   ViewBag.Title = "Task List";
+   Model.Title = "Task List";
+   Model.GridParam.FilterList.OrderBy = "ActionTrackingID desc";
+
+   var message = "";
+   if (ViewBag.Message != null)
+   {
+      message = ViewBag.Message;
+   }
+}
+
+<div>
+   <div class="header-page">
+      @Model.Title
+      @{Html.RenderAction("TaskListTabCounter", Model.GridParam);}
+   </div>
+</div>
+
+
+@{Html.RenderAction("InitGrid", Model.GridParam);}
+
+@Styles.Render("~/Styles/GridList.css")
+
+@section scripts {
+   @Html.Partial("Component/CrudPage/CrudScript", Model)
+   <script>
+
+        $(document).ready(function () {
+             // tampilin notif success jika ada
+            var msg = "@(Html.Raw(message))";
+            if (msg) {
+                showToast(msg);
+            }
+
+        });
+
+
+
+   </script>
+}

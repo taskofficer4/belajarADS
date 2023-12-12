@@ -1,0 +1,66 @@
+﻿[
+  {
+    "outputFile": "Styles/GridList.css",
+    "inputFile": "Styles/GridList.scss"
+  },
+  {
+    "outputFile": "Styles/bootstrap/_Root.css",
+    "inputFile": "Styles/bootstrap/_Root.scss"
+  },
+  {
+    "outputFile": "Styles/bootstrap/Accordion.css",
+    "inputFile": "Styles/bootstrap/Accordion.scss"
+  },
+  {
+    "outputFile": "Styles/bootstrap/Button.css",
+    "inputFile": "Styles/bootstrap/Button.scss"
+  },
+  {
+    "outputFile": "Styles/bootstrap/Dropdown.css",
+    "inputFile": "Styles/bootstrap/Dropdown.scss"
+  },
+  {
+    "outputFile": "Styles/bootstrap/Alert.css",
+    "inputFile": "Styles/bootstrap/Alert.scss"
+  },
+  {
+    "outputFile": "Styles/bootstrap/Badge.css",
+    "inputFile": "Styles/bootstrap/Badge.scss"
+  },
+  {
+    "outputFile": "Styles/bootstrap/Input.css",
+    "inputFile": "Styles/bootstrap/Input.scss"
+  },
+  {
+    "outputFile": "Styles/bootstrap/Switch.css",
+    "inputFile": "Styles/bootstrap/Switch.scss"
+  },
+  {
+    "outputFile": "Styles/bootstrap/Radio.css",
+    "inputFile": "Styles/bootstrap/Radio.scss"
+  },
+  {
+    "outputFile": "Styles/bootstrap/Modal.css",
+    "inputFile": "Styles/bootstrap/Modal.scss"
+  },
+  {
+    "outputFile": "Styles/bootstrap/Table.css",
+    "inputFile": "Styles/bootstrap/Table.scss"
+  },
+  {
+    "outputFile": "Styles/Layout-desktop.css",
+    "inputFile": "Styles/Layout-desktop.scss"
+  },
+  {
+    "outputFile": "Styles/Layout.css",
+    "inputFile": "Styles/Layout.scss"
+  },
+  {
+    "outputFile": "Styles/Layout-mobile.css",
+    "inputFile": "Styles/Layout-mobile.scss"
+  },
+  {
+    "outputFile": "Styles/Color.css",
+    "inputFile": "Styles/Color.scss"
+  }
+]

@@ -1,0 +1,21 @@
+﻿@using Actris.Abstraction.Model.View
+@using Newtonsoft.Json
+@model GridListModel
+
+
+<div class="filter-container">
+    @Html.Partial("_GridHeader")
+    @Html.Partial("Component/Grid/_FilterApplied")
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        @Html.Partial("Component/Grid/_THead")
+        <tbody>
+            @Html.Partial("GridRows_Crud")
+        </tbody>
+    </table>
+    
+    @Html.Partial("Component/Grid/_GridNoResult")
+</div>
+@Html.Partial("Component/Grid/_GridFooter")

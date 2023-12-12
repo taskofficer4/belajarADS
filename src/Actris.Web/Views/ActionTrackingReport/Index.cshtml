@@ -1,0 +1,39 @@
+﻿@using Actris.Abstraction.Model.View
+@model CrudPage
+
+@{
+   ViewBag.Title = "Action Tracking Report";
+   Model.Title = "Action Tracking Report";
+   Model.GridParam.FilterList.OrderBy = "CreatedDate desc";
+}
+
+<div class="header-page">
+   @Model.Title
+</div>
+
+@{Html.RenderAction("InitGrid", Model.GridParam);}
+@Html.Partial("_CaListModal")
+
+@Styles.Render("~/Styles/GridList.css")
+
+@section scripts {
+   @Html.Partial("Component/CrudPage/CrudScript", Model)
+
+   <script>
+
+        var urlGetCaList = '@Url.Action("GetCaList")';
+        function showCaListModal(actionTrackingId) {
+            clearForm("#ModalCaList");
+            $("#ModalCaList").modal('show');
+
+            $.get(urlGetCaList + "/" + actionTrackingId, function (partialView) {
+                $("#ModalCaList .append-here").html($(partialView));
+
+            }).fail(function (response) {
+                setTimeout(function () {
+                    $("#ModalCaList").modal('hide');
+                }, 500);
+            });
+        }
+   </script>
+}

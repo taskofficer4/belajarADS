@@ -1,0 +1,56 @@
+﻿@using Actris.Web.Extensions
+@model List<Actris.Abstraction.Model.Dto.TxCaDto>
+<div class="modal-content">
+
+
+    <div class="modal-header">
+        <h5 class="modal-title">CA List (@Model.Count())</h5>
+        <div class="d-flex align-items-center">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <div class="modal-body p-0">
+        <table class="table table-hover m-0">
+            <thead>
+                <tr>
+                    <th class="valign-mid">CA ID</th>
+                    <th class="valign-mid">Department</th>
+                    <th class="valign-mid">Recomendation</th>
+                    <th class="valign-mid">PIC</th>
+                    <th class="valign-mid">Priority Level</th>
+                    <th class="valign-mid">Pending Action</th>
+                    <th class="valign-mid">Status</th>
+                </tr>
+            </thead>
+
+            @foreach (var ca in Model)
+            {
+
+                <tr>
+                    <td>@ca.CorrectiveActionID</td>
+                    <td>@ca.ResponsibleDepartment</td>
+                    <td>@ca.Recomendation</td>
+                    <td>@ca.Pic1</td>
+                    <td>@ca.CorrectiveActionPriority</td>
+                    <td></td>
+                    <td>@ca.Status</td>
+                </tr>
+            }
+        </table>
+
+
+        @if (Model.Any() == false)
+        {
+            <div class="text-center pt-1 mb-5">
+                <img src="~/Assets/Grid/empty-grid.jpg" style="width:250px;margin-top:20px" />
+                <div class="text-muted mt-2">No Result were found</div>
+            </div>
+        }
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" style="width:90px">Close</button>
+    </div>
+    <div class="modal-block-overlay"></div>
+</div>

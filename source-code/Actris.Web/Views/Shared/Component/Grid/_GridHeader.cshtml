@@ -1,0 +1,55 @@
+﻿@using Actris.Abstraction.Model.View
+@using Newtonsoft.Json
+@model GridListModel
+
+<div class="filter-section">
+    @if (!Model.FilterList.IsForLookup)
+    {
+        <div class="d-flex">
+
+            @if (!Model.HideActionButton)
+            {
+                <button class="btn btn-primary me-2" onclick="crud.showCreateForm()">Create <i class="fa fa-pluss"></i></button>
+            }
+
+
+            <button class="btn btn-secondary" onclick="@(Model.GridJsVar).downloadSpreadsheet(this)">
+                Export Excel
+                <i class="fa-solid fa-download ms-2"></i>
+                <div class="spinner-border spinner-border-sm ms-2" role="status" style="display:none">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+
+            </button>
+            <!--<div class="dropdown ms-2">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Actions
+        </a>-->
+            @*<div class="dropdown-menu">
+            <a class="dropdown-item" href="#" onclick="@(Model.GridJsVar).downloadSpreadsheet()"><i class="fa fa-regular fa-file-excel"></i>Export To Spreadsheet</a>
+            <a class="dropdown-item" href="#" onclick="@(Model.GridJsVar).downloadPdf()"><i class="fa fa-regular fa-file-pdf"></i>Export To PDF</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#"><i class="fa fa-solid fa-upload"></i>Import From File</a>
+        </div>*@
+            <!--</div>-->
+        </div>
+    }
+
+    <div class="d-flex align-items-center">
+        <form onsubmit="event.preventDefault();@(Model.GridJsVar).quickFind(this)">
+            <div class="input-group">
+
+                @{
+                    var anyFieldKeyword = Model?.FilterList?
+                        .FilterItems?
+                        .FirstOrDefault(o => o.FirstOrDefault()?.Name == "AnyField")?
+                        .FirstOrDefault()?.Value;
+                }
+                <input type="text" class="form-control quickfind" value="@anyFieldKeyword" placeholder="Quick Find">
+                <button class="btn btn-secondary " type="submit"><i class="fa fa-magnifying-glass"></i></button>
+            </div>
+        </form>
+    </div>
+
+
+</div>

@@ -1,0 +1,76 @@
+﻿@using Actris.Web.Extensions
+@using Actris.Abstraction.Model.View
+@model Actris.Abstraction.Model.Dto.TxActDto
+
+@{
+   ViewBag.Title = "Create Action Tracking";
+
+   if (Model.FormState == Actris.Abstraction.Model.View.FormState.Edit)
+   {
+      ViewBag.Title = "Edit Action Tracking";
+   }
+   else if (Model.FormState == FormState.View)
+   {
+      ViewBag.Title = "View Action Tracking";
+   }
+   Layout = "~/Views/Shared/_LayoutNoSideBar.cshtml";
+}
+
+<div class="header-page d-flex align-items-center" style="border:none">
+   <div class="d-flex flex-column flex-md-row">
+      <a href="@Url.Action("Index","ActionTrackingList")" class="btn btn-flat btn-lg me-2"><i class="fa-solid fa-arrow-left"></i></a>
+      <div class="text-truncate">@ViewBag.Title</div>
+   </div>
+   <div class="ms-auto flex-shrink-0 flex-grow-0 pe-2">
+      <div class="text-end">
+         @if (Model.FormState != FormState.View)
+         {
+            <button type="button" class="btn btn-secondary" style="width:100px" onclick="onSaveClick()">Save</button>
+            <button type="button" class="btn btn-primary ms-2" style="width:100px" onclick="onSubmitClick()">Submit</button>
+         }
+
+      </div>
+   </div>
+</div>
+
+<form id="mainForm" method="post" autocomplete="off">
+   @Html.AntiForgeryToken()
+   @Html.HiddenFor(o => o.IsSubmit)
+   <div class="p-4 pt-0">
+      @Html.Partial("_Form-ACT")
+      @if (Model.FormState == FormState.View)
+      {
+         @Html.Partial("_CaList-ViewOnly", Model.CaList)
+      }
+      else
+      {
+         <div class="append-calist-here">
+            @Html.Partial("_CaList", Model.CaList)
+         </div>
+      }
+
+
+      <div class="text-end mt-4">
+         @if (Model.FormState != FormState.View)
+         {
+            <button type="button" class="btn btn-secondary" style="width:100px" onclick="onSaveClick()">Save</button>
+            <button type="button" class="btn btn-primary ms-2" style="width:100px" onclick="onSubmitClick()">Submit</button>
+         }
+      </div>
+   </div>
+</form>
+@Html.Partial("_CaModal")
+
+@section scripts{
+   <script src="~/Scripts/Page/ActionTrackingForm.js"></script>
+   <script src="~/Scripts/Page/CaFormModal.js"></script>
+   <script>
+        baseController = '@Url.Action("","ActionTracking")';
+        $(document).ready(function () {
+            @if (!ViewData.ModelState.IsValid)
+            {
+                @:showToastError("Please check your input");
+            }
+        });
+   </script>
+}

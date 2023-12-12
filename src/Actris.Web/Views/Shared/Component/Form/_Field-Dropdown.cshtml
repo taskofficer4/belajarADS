@@ -1,0 +1,52 @@
+﻿@using Actris.Abstraction.Model.View;
+@model Field
+
+@{
+    var field = Model;
+    var readOnlyInput = "";
+    if (field.IsReadOnly)
+    {
+        readOnlyInput = "disabled";
+    }
+
+}
+
+
+@if (field.IsReadOnly)
+{
+    <input type="hidden" id="@field.Id" name="@field.Id" value="@(field.Value?.ToString())"/>
+    <select class="form-select" placeholder="Select @field.Label" @readOnlyInput>
+        <option value=""></option>
+
+        @foreach (var item in field.LookUpList.Items)
+        {
+            if (item.Value == field.Value?.ToString())
+            {
+                <option value="@item.Value" selected>@item.Text</option>
+            }
+            else
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        }
+    </select>
+}
+else
+{
+    <select class="form-select init-select2" id="@field.Id" name="@field.Id" placeholder="Select @field.Label" @readOnlyInput>
+        <option value=""></option>
+
+        @foreach (var item in field.LookUpList.Items)
+        {
+            if (item.Value == field.Value?.ToString())
+            {
+                <option value="@item.Value" selected>@item.Text</option>
+            }
+            else
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+
+        }
+    </select>
+}

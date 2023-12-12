@@ -1,0 +1,19 @@
+﻿<div class="mobile-menu-overlay"></div>
+<div class="sidebar-container">
+
+    
+    <div class="nav-header-mobile">
+        <a href="#" class="btn btn-menu toggle-main-menu" title="Menu">
+            <i class="fa-solid fa-bars layout-icon-bars-color"></i>
+        </a>
+        <a href="#" class="btn btn-menu toggle-main-menu-mobile" title="Close Menu">
+            <i class="fa-solid fa-xmark layout-icon-bars-color"></i>
+        </a>
+        @*<img src="~/Assets/logo_white.png" />*@
+        <img src="~/Assets/PHE_Logo_Color.png" />
+
+    </div>
+    <nav>
+        @{Html.RenderAction("UserMenu", "Account");}
+    </nav>
+</div>

@@ -1,0 +1,59 @@
+﻿@using Actris.Abstraction.Model.View
+@model GridListModel
+
+@{
+	string currentControllerName = Request.Url.AbsolutePath;
+	currentControllerName = currentControllerName.ToLower();
+	var urlCa = "";
+	if (currentControllerName.Contains("needaction"))
+	{
+		urlCa = Url.Action("NeedAction", "CorrectiveAction", new { Area = "" });
+	}
+	else if (currentControllerName.Contains("needapproval"))
+	{
+		urlCa = Url.Action("NeedApproval", "CorrectiveAction", new { Area = "" });
+	}
+	else if (currentControllerName.Contains("overdue"))
+	{
+		urlCa = Url.Action("Overdue", "CorrectiveAction", new { Area = "" });
+	}
+}
+
+@foreach (var row in Model.Rows)
+{
+	var i = 0;
+	<tr CorrectiveActionID="@row.Id">
+
+		@foreach (var column in row.Columns)
+		{
+			i++;
+			if (column.FieldId == "CorrectiveActionID")
+			{
+				<td>
+					<a class="link-primary fw-semibold" href="@(urlCa + "/" + column.Text)">
+						@column.Text
+					</a>
+				</td>
+			}
+			else if (column.Type == ColumnType.InputCheckbox)
+			{
+				<td class="text-center">
+					<input type="checkbox" name="@column.FieldId" style="width: 23px; height:23px;" class="form-check-input @column.FieldId cursor-pointer" title="@column.ColumnLabel" />
+				</td>
+			}
+			else if (column.Type == ColumnType.InputTextArea)
+			{
+				<td><textarea class="form-control @column.FieldId" placeholder="Remark"></textarea></td>
+			}
+
+
+			else
+			{
+
+				<td>@column.Text</td>
+
+			}
+		}
+
+	</tr>
+}

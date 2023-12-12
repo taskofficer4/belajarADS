@@ -1,0 +1,48 @@
+﻿@using Actris.Abstraction.Model.View
+@model GridListModel
+
+@foreach (var row in Model.Rows)
+{
+    var i = 0;
+    <tr>
+       <td>
+          <div class="d-flex">
+             <a class="btn btn-secondary btn-sm me-1" href="@Url.Action("View","ActionTracking",new { id = row.Id })" title="View">
+                <i class="fa-solid fa-eye"></i>
+             </a>
+
+             <a class="btn btn-secondary btn-sm me-1" href="#" onclick="showCaListModal('@row.Id')" title="View CA">
+                <i class="fa-solid fa-list-check"></i>
+             </a>
+             <a class="btn btn-secondary btn-sm" href="#" onclick="crud.showConfirmDelete('@row.Id', '@row.Columns.First().Value')" title="Delete">
+                <i class="fa fa-regular fa-trash-can text-danger"></i>
+             </a>
+          </div>
+       </td>
+       @foreach (var column in row.Columns)
+       {
+          i++;
+          if (i == 1)
+          {
+             <td>
+                <div class="d-flex align-items-center justify-content-between w-100">
+                   <a  class="link-primary fw-semibold"  href="@Url.Action("View","ActionTracking",new { id = row.Id })" title="View ACT">
+                      @column.Text
+                   </a>
+                
+                </div>
+
+             </td>
+
+          }
+          else
+          {
+
+
+             <td>@column.Text</td>
+
+          }
+       }
+
+    </tr>
+}

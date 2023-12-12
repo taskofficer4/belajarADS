@@ -1,0 +1,37 @@
+﻿@using Actris.Abstraction.Model.View
+@model CrudPage
+
+@{
+	ViewBag.Title = "Task List";
+	Model.Title = "Task List";
+	Model.GridParam.FilterList.OrderBy = "ActionTrackingID desc";
+
+	var message = "";
+	if (ViewBag.Message != null)
+	{
+		message = ViewBag.Message;
+	}
+}
+
+<div>
+	<div class="header-page">
+		@Model.Title
+		@{Html.RenderAction("TaskListTabCounter", Model.GridParam);}
+	</div>
+</div>
+
+
+@{Html.RenderAction("InitGrid", Model.GridParam);}
+@Html.Partial("_ApprovalConfirmationModal")
+@Html.Partial("_ApprovalResultModal")
+@Styles.Render("~/Styles/GridList.css")
+
+
+
+@section scripts {
+	@Html.Partial("Component/CrudPage/CrudScript", Model)
+	<script src="~/Scripts/Page/TaskListNeedApproval.js"></script>
+	<script>
+		 baseController = '@Url.Action("","NeedApproval", new {Area="TaskList"})';
+	</script>
+}

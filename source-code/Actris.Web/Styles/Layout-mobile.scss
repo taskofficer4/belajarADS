@@ -1,0 +1,97 @@
+﻿$width-collapse : 62px;
+$mobile-screen  : 768px;
+$sidebar-mobile-width  : 280px;
+$transition-slidemenu: all 0.1s ease-out;
+
+@media screen and (max-width: $mobile-screen) {
+    .sidebar-container {
+        width: 0;
+        overflow: hidden;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: $transition-slidemenu;
+    }
+
+    .mobile-menu-overlay {
+        background: #00000000;
+        transition: $transition-slidemenu;
+    }
+
+    .no-scroll {
+        overflow: hidden;
+    }
+
+    .sidebar-expand-mobile {
+        .sidebar-container {
+            width: $sidebar-mobile-width;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #0000007d;
+            z-index: 10;
+        }
+    }
+
+    nav {
+        z-index: 10;
+
+        .nav-header-mobile {
+            background-color: var(--neutral-30);
+            display: flex;
+            align-items: center;
+            height: 64px;
+            overflow: hidden;
+            padding-left: 10px;
+            border-bottom: solid 1px var(--component-border);
+
+            img {
+                height: 39px;
+            }
+        }
+    }
+
+    main {
+        margin-left: 0;
+    }
+
+    header {
+        .mobile-menu {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: $width-collapse;
+            background-color: var(--main-layout-color);
+            border-right: 2px solid rgba(0, 0, 0, 0.15);
+            border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+        }
+
+        > .right-side {
+            padding-left: 77px;
+            padding-right: 5px;
+
+            .brand-name {
+                font-size: 16px;
+            }
+
+            img {
+                height: 39px;
+            }
+        }
+    }
+
+    .user-info, .toggle-main-menu {
+        display: none;
+    }
+
+    .header-page {
+        font-size: 20px;
+    }
+}

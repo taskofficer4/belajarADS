@@ -1,0 +1,79 @@
+﻿@using Actris.Web.Extensions
+@using Actris.Abstraction.Model.View;
+@using Actris.Abstraction.Enum;
+
+@model Actris.Abstraction.Model.Dto.TxCaDto
+
+
+
+<form class="modal-content" action="@Url.Action("ProposedDueDateEdit","CorrectiveAction", new {id=""})" method="post" onsubmit="event.preventDefault()" autocomplete="off">
+
+   <div class="modal-header">
+      <h5 class="modal-title">Propose Due Date </h5>
+      <div class="d-flex align-items-center">
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+   </div>
+   <div class="modal-body">
+
+      <fieldset>
+         <div class="row mb-3">
+            <label class="col-sm-3  col-form-label is-required">Due Date Revision</label>
+            <div class="col-sm-9">
+               <div class="input-group" style="max-width:253px">
+                  @Html.TextBoxFor(o => o.ProposedDueDate, new
+                    {
+                        @class = "form-control init-datepicker",
+                        placeholder = "Due Date Revision",
+                        data_date_today_btn = "linked",
+                        data_date_today_highlight = "true"
+                    })
+                  <span class="input-group-text input-group-right"><i class="fa-regular fa-calendar"></i></span>
+               </div>
+               @Html.ValidationMessageFor(model => model.ProposedDueDate)
+            </div>
+         </div>
+
+         <div class="row mb-3">
+            <label class="col-sm-3  col-form-label is-required">Justification</label>
+            <div class="col-sm-9">
+               @Html.TextAreaFor(model => model.ProposedDueDateData, new
+                          {
+                              rows = "4",
+                              placeholder = "Justification",
+                              @class = "form-control",
+                              maxLength = "1000"
+                          })
+               <div class="d-flex justify-content-between">
+                  @Html.ValidationMessageFor(model => model.ProposedDueDateData)
+                  <div class="fs-small ms-auto text-muted" style="margin-top: 0.25rem; "><span id="ProposedDueDateData_counter">0</span>/1000</div>
+               </div>
+            </div>
+         </div>
+         <div class="renderAttachment">
+            @{
+               Html.RenderAction("AttachmentSection", "Attachment", new
+               {
+                  Area = "",
+                  documentType = DocumentTypeEnum.CA,
+                  projectPhase = ProjectPhaseEnum.Propose,
+                  attachmentList = Model.Attachments,
+                  viewOnly = false
+               });
+            }
+         </div>
+      </fieldset>
+   </div>
+   <div class="modal-footer">
+      @if (Model.State == FormState.View)
+      {
+         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" style="width:100px">Close</button>
+      }
+      else
+      {
+         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" style="width:100px">Cancel</button>
+         <button type="submit" class="btn btn-primary btn-will-loading" style="width:100px">Submit</button>
+      }
+   </div>
+   <div class="modal-block-overlay"></div>
+</form>

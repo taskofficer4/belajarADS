@@ -1,0 +1,125 @@
+﻿@model Actris.Abstraction.Model.Dto.ActionTrackingViewDto
+<form>
+    <fieldset disabled>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">ACT ID</label>
+                    @Html.TextBoxFor(o => o.ActId, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label is-required">ACT Source</label>
+                    <select class="form-select">
+                        <option>@Model.ActSource</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Reference ID</label>
+                    @Html.TextBoxFor(o => o.ReferenceId, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label is-required">Issue Date</label>
+                    @Html.TextBoxFor(o => o.IssueDate, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="mb-3">
+                    <label class="form-label is-required">Finding Description</label>
+                    <div class="text-area-view-only">@Model.FindingDescription</div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label is-required">SHU / Regional</label>
+                    <select class="form-select">
+                        <option>@Model.TypeShuRegion</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label is-required">Directorate / Regional</label>
+                    <select class="form-select">
+                        <option>@Model.DirectorateRegional</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label is-required">Division / Zona</label>
+                    <select class="form-select">
+                        <option>@Model.DivisionZona</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label is-required">Company</label>
+                    <select class="form-select">
+                        <option>@Model.Company</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label is-required">Wilayah Kerja</label>
+                    <select class="form-select">
+                        <option>@Model.WilayahKerja</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label is-required">Location</label>
+                    @Html.TextBoxFor(o => o.Location, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label is-required">Sub-Location</label>
+                    @Html.TextBoxFor(o => o.SubLocation, new { @class = "form-control" })
+                </div>
+            </div>
+
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Location Status</label>
+                    <select class="form-select">
+                        <option>@Model.LocationStatus</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="mb-3">
+                    <label class="form-label">Not Comply to (Optional)</label>
+                    <div class="text-area-view-only">@Model.Nct</div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="mb-3">
+                    <label class="form-label">Root Cause Analysis (Optional)</label>
+                    <div class="text-area-view-only">@Model.Rca</div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

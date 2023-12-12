@@ -1,0 +1,95 @@
+﻿@using Actris.Abstraction.Model.Response;
+@model User
+@{
+    ViewBag.Title = "Run As Page";
+}
+
+
+
+
+
+<div class="header-page">
+    @ViewBag.Title
+</div>
+
+<div class="table-title">
+    <div class="heading-Text">
+        Existing User Information
+    </div>
+    <div class="table-subtitle">
+        @*Heading sub title*@
+    </div>
+</div>
+
+<div class="p-3">
+
+
+    Name        : @Model.Name
+    <br />
+    Email       : @Model.Email
+    <br />
+    EmpId       : @Model.EmpId
+    <br />
+    EmpAccount  : @Model.EmpAccount
+    <br />
+    Roles       : @foreach (var role in Model.Roles)
+    {
+        @(role.Value)
+    }
+
+
+    @*@using (Html.BeginForm("Impersonate", "Account", FormMethod.Post))
+        {
+            <div>
+                @Html.Label("Account:")
+                @Html.TextBox("account")
+                <button type="submit">Impersonate</button>
+            </div>
+        }*@
+
+    
+@using (Html.BeginForm("LoginFormImpersonate", "Home", FormMethod.Post))
+{
+    <div>
+        @Html.Label("Account:")
+        @Html.TextBox("account")
+        <button type="submit">Impersonate</button>
+    </div>
+}
+
+    @*<form>
+
+        <div class="content">
+            <div class="input-field">
+                <input id="input-login-username" type="text" placeholder="Username" autocomplete="nope">
+            </div>
+        </div>
+        <div class="action">
+            <button>Sign in</button>
+        </div>
+    </form>
+
+    <script>
+
+        let form = document.querySelector('form');
+
+form.addEventListener('submit', (e) => {
+
+    debugger;
+    var urlLink = '@Url.Action("LoginForm", "Home")';
+
+    let el = document.getElementById("input-login-username");
+    let url = (new URL('../home/LoginFormImpersonate' + '?userName=' + el.value, document.location)).href;
+    console.log("newurl",url);
+    fetch(url).then(function (response) {
+        debugger;
+        let url2 = (new URL('../home/Index', document.location)).href;
+
+        window.location = url2;
+    });
+
+});
+
+    </script>*@
+     
+</div>

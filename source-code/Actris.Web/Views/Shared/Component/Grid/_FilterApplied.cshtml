@@ -1,0 +1,141 @@
+﻿@using Actris.Abstraction.Model.View
+@using Newtonsoft.Json
+@model GridListModel
+@{
+    var anyFilter = Model.FilterList.AnyFilter();
+    var dateColumns = new List<string>();
+}
+
+@if (anyFilter)
+{
+
+    <div class="alert alert-warning" role="alert">
+        <div class="d-flex">
+            <div class="alert-left-part">
+                <i class="fa fa-circle-info text-warning"></i>
+            </div>
+
+            <div class="filter-applied">
+                <span class="fw-semibold">A filter has been applied.</span>
+
+                @foreach (var filterAnd in Model.FilterList.FilterItems)
+                {
+                    var firstFilterOr = filterAnd.FirstOrDefault();
+
+                    // khusus type date cara render nya agak special
+                    if (firstFilterOr.FilterType !=  Actris.Abstraction.Model.View.FilterType.Includes &&  dateColumns.Contains(firstFilterOr.Name))
+                    {
+                        continue;
+                    }
+
+                    var column = Model.ColumnDefinitions.FirstOrDefault(o => o.Id == firstFilterOr.Name);
+                    var columnName = column?.Name;
+
+                    if (columnName == null)
+                    {
+                        columnName = firstFilterOr.Name;
+                    }
+
+                    // for date time
+                    if (column?.Type == ColumnType.Date || column?.Type == ColumnType.DateTime)
+                    {
+                        if (firstFilterOr != null && (firstFilterOr.FilterType !=  Actris.Abstraction.Model.View.FilterType.Includes))
+                        {
+                            var secondFilter = Model.FilterList.FilterItems.FirstOrDefault(o => o.Any(a => a.Name == firstFilterOr.Name && a.FilterType != firstFilterOr.FilterType && a.FilterType !=  Actris.Abstraction.Model.View.FilterType.Includes));
+                            var isSingleDate = secondFilter == null;
+
+                            <span class="filter-name text-warning fw-bold"> @columnName </span>
+
+                            // single date
+                            if (isSingleDate)
+                            {
+                               
+                                <span>@firstFilterOr.FilterType </span>
+                                <span class="badge badge-primary rounded-pill ">@DateTime.Parse(firstFilterOr.Value).ToString("dd-MMM-yyyy")</span>
+                            }
+                            else
+                            {
+                                var secondFilterOr = secondFilter.FirstOrDefault();
+                                <span class="badge badge-primary rounded-pill ">@DateTime.Parse(firstFilterOr.Value).ToString("dd-MMM-yyyy") <i class="fa-solid fa-caret-right ms-1 me-1"></i> @DateTime.Parse(secondFilterOr.Value).ToString("dd-MMM-yyyy")</span>
+                            }
+                            dateColumns.Add(firstFilterOr.Name);
+                            continue;
+                        }
+                    }
+
+                    if (firstFilterOr != null)
+                    {
+                        <span class="filter-name text-warning fw-bold"> @columnName </span>
+                        <span>  @firstFilterOr. Actris.Abstraction.Model.View.FilterType.ToString() </span>
+                        foreach (var filterOr in filterAnd)
+                        {
+                            if (columnName == "AnyField")
+                            {
+                                var keywords = filterOr.Value.Trim().Split(' ');
+                                foreach (var keyword in keywords)
+                                {
+                                    <span class="badge badge-primary rounded-pill ">@keyword</span>
+                                }
+
+                            }
+                            else
+                            {
+                                if (column?.Type == ColumnType.Date || column?.Type == ColumnType.DateTime)
+                                {
+                                    if (string.IsNullOrEmpty(filterOr.Value))
+                                    {
+                                        <span class="badge badge-primary rounded-pill ">[Empty]</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-primary rounded-pill ">@DateTime.Parse(filterOr.Value).ToString("dd-MMM-yyyy")</span>
+                                    }
+
+                                }
+                                else if (column?.Type == ColumnType.Percentage)
+                                {
+                                    if (string.IsNullOrEmpty(filterOr.Value))
+                                    {
+                                        <span class="badge badge-primary rounded-pill ">[Empty]</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-primary rounded-pill ">@decimal.Parse(filterOr.Value).ToString("P")</span>
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (string.IsNullOrEmpty(filterOr.Value))
+                                    {
+                                        <span class="badge badge-primary text-muted rounded-pill ">[Empty]</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-primary rounded-pill ">@filterOr.Value</span>
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+
+
+                    }
+
+
+
+                }
+            </div>
+
+
+
+            <div class="alert-right-part ms-auto">
+                <button class="alert-close-btn btn btn-rounded btn-flat btn-icon" title="Clear Filter" onclick="@(Model.GridJsVar).clearAllFilter()"> <i class="fa fa-xmark"></i></button>
+            </div>
+
+        </div>
+    </div>
+}

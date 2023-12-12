@@ -1,0 +1,79 @@
+﻿input.datepicker {
+  cursor: pointer;
+}
+input.datepicker.form-control:disabled {
+  cursor: default;
+}
+
+.btn-input-clear {
+  z-index: 1;
+  position: absolute !important;
+  right: 47px;
+  top: 6px;
+  border-radius: 20px !important;
+  width: 28px;
+  height: 28px;
+}
+
+input.yearpicker {
+  cursor: pointer;
+}
+input.yearpicker.form-control:disabled {
+  cursor: default;
+}
+
+.monthpicker {
+  cursor: pointer;
+}
+
+.datepicker.dropdown-menu {
+  padding: 10px;
+}
+.datepicker .datepicker-switch {
+  font-size: 17px;
+}
+.datepicker .datepicker-days th.dow {
+  padding-top: 10px;
+  font-size: 16px;
+}
+.datepicker .datepicker-days th.dow:nth-child(6), .datepicker .datepicker-days th.dow:nth-child(7) {
+  color: red;
+}
+.datepicker .datepicker-days td {
+  font-size: 14px;
+  padding: 4px 8px;
+}
+.datepicker .datepicker-months table tr td span {
+  display: block;
+  width: 23%;
+  height: 45px;
+  line-height: 45px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.datepicker .datepicker-months td {
+  font-size: 16px;
+}
+
+.datepicker table tr td.active:hover, .datepicker table tr td.active:hover:hover, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td.active:active, .datepicker table tr td.active:hover:active, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.active, .datepicker table tr td.active:hover.active, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled:hover.active, .datepicker table tr td.active.disabled, .datepicker table tr td.active:hover.disabled, .datepicker table tr td.active.disabled.disabled, .datepicker table tr td.active.disabled:hover.disabled, .datepicker table tr td.active[disabled], .datepicker table tr td.active:hover[disabled], .datepicker table tr td.active.disabled[disabled], .datepicker table tr td.active.disabled:hover[disabled] {
+  background: var(--main-primary);
+  border-radius: 2px;
+}
+
+.datepicker table tr td span.active:hover, .datepicker table tr td span.active:hover:hover, .datepicker table tr td span.active.disabled:hover, .datepicker table tr td span.active.disabled:hover:hover, .datepicker table tr td span.active:active, .datepicker table tr td span.active:hover:active, .datepicker table tr td span.active.disabled:active, .datepicker table tr td span.active.disabled:hover:active, .datepicker table tr td span.active.active, .datepicker table tr td span.active:hover.active, .datepicker table tr td span.active.disabled.active, .datepicker table tr td span.active.disabled:hover.active, .datepicker table tr td span.active.disabled, .datepicker table tr td span.active:hover.disabled, .datepicker table tr td span.active.disabled.disabled, .datepicker table tr td span.active.disabled:hover.disabled, .datepicker table tr td span.active[disabled], .datepicker table tr td span.active:hover[disabled], .datepicker table tr td span.active.disabled[disabled], .datepicker table tr td span.active.disabled:hover[disabled] {
+  background: var(--main-primary);
+  border-radius: 2px;
+}
+
+.datepicker table tr td.old, .datepicker table tr td.new {
+  color: #d7d7d7;
+}
+
+.datepicker .today {
+  height: 35px;
+}
+
+.input-group input.input-validation-error {
+  background-position: right calc(0.375em + 2.6rem) center;
+}

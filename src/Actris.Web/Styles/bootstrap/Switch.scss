@@ -1,0 +1,22 @@
+﻿.form-check.form-switch {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .form-check-input {
+        height: 22px;
+        width: 36px;
+        cursor: pointer;
+    }
+
+    label.form-check-label {
+        padding-left: 10px;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+}
+
+.form-check-input:checked {
+    background-color: var(--main-primary);
+    border-color: var(--main-primary);
+}

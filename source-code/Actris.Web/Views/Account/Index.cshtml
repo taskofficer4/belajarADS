@@ -1,0 +1,16 @@
+﻿@using Actris.Abstraction.Model.Response;
+@model User
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>User Information:</h2>
+
+Name        : @Model.Name <br />
+Email       : @Model.Email <br />
+EmpId       : @Model.EmpId <br />
+EmpAccount  : @Model.EmpAccount <br />
+Roles       : @foreach(var role in Model.Roles)
+            {
+                @(role.Value)
+            }

@@ -1,0 +1,178 @@
+﻿@using Actris.Abstraction.Model.View;
+@model  GridParam
+
+@{
+    Random rnd = new Random();
+    var rndLength = rnd.Next(6, 11);
+}
+@foreach (var column in Model.ColumnDefinitions)
+{
+    <div id="@(Model.GridId)_FilterModal-@(column.Id)" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <span class="text-primary fw-bold">@column.Name</span> <span> include : </span>
+                    </div>
+
+                </div>
+                <div class="modal-body">
+                    @{
+                        var filterListId = $"{Model.GridId}_FilterList-{column.Id}";
+                    }
+                    <div id="@filterListId">
+
+                        @*LOADING*@
+                        @for (int i = 0; i < rndLength; i++)
+                        {
+                            int widthRdn = rnd.Next(4, 7);
+                            <div class="placeholder-glow">
+                                <span class="placeholder" style="width: 14px;margin-right: 5px;"></span>
+                                <span class="placeholder col-@widthRdn"></span>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-sm btn-primary px-3" onclick="@(Model.GridJsVar).adaptiveFilter.submit('@column.Id')">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    if (column.Type == ColumnType.String)
+    {
+        <div id="@(Model.GridId)_TextFilterModal-@(column.Id)" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div>
+                            <span class="text-primary fw-bold">@column.Name</span>
+                        </div>
+
+                    </div>
+                    <div class="modal-body">
+                        @{
+                            var textFilterFieldId = $"TextFilterField-{column.Id}";
+                            var textFilterInputId = $"TextFilterInput-{column.Id}";
+                        }
+                        <div>
+                            <label class="form-label fw-bold" for="@textFilterFieldId" title="Required">Filter</label>
+                            <select class="form-select" id="@textFilterFieldId" name="@textFilterFieldId">
+                                <option value="Equal" selected>equal</option>
+                                <option value="NotEqual">not equal</option>
+                                <option value="BeginWith">begin with</option>
+                                <option value="NotBeginWith">not begin with</option>
+                                <option value="Contains">contains</option>
+                                <option value="NotContains">not contain</option>
+                                <option value="EndWith">end with</option>
+                                <option value="NotEndWith">not end with</option>
+
+                            </select>
+                            <hr class="hr" style="color: rgba(0, 0, 0, 0.4)" />
+                            <input class="form-control text-box single-line" id="@textFilterInputId" name="" type="text" value="" placeholder="Enter value..">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-sm btn-primary px-3" onclick="@(Model.GridJsVar).textFilter.submit('@column.Id')">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (column.Type == ColumnType.Number)
+    {
+        <div id="@(Model.GridId)_NumberFilterModal-@(column.Id)" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div>
+                            <span class="text-primary fw-bold">@column.Name</span>
+                        </div>
+
+                    </div>
+                    <div class="modal-body">
+                        @{
+                            var numberFilterFieldId = $"NumberFilterField-{column.Id}";
+                            var numberFilterInputId = $"NumberFilterInput-{column.Id}";
+                        }
+                        <div>
+                            <label class="form-label fw-bold" for="@numberFilterFieldId" title="Required">Filter</label>
+                            <select class="form-select" id="@numberFilterFieldId" name="@numberFilterFieldId" onchange="@(Model.GridJsVar).numberFilter.fieldSelectChange('@column.Id')">
+                                <option value="Equal" selected>equal</option>
+                                <option value="NotEqual">not equal</option>
+                                <option value="LessThan">less than</option>
+                                <option value="GreaterThan">greater than</option>
+                                <option value="LessThanOrEqual">less than or equal</option>
+                                <option value="GreaterThanOrEqual">greater than or equal</option>
+                                <option value="Between">between</option>
+                                <option value="NotEmpty">not empty</option>
+                                <option value="Empty">empty</option>
+
+                            </select>
+                            <hr class="hr" style="color: rgba(0, 0, 0, 0.4)" />
+                            <input class="form-control text-box single-line" id="@numberFilterInputId" name="" type="number" value="" placeholder="Enter value..">
+                            <label class="form-label" for="@numberFilterInputId-2" style="margin-top: 0.5rem; display: none">and</label>
+                            <input class="form-control text-box single-line" id="@numberFilterInputId-2" style="display: none" name="" type="number" value="" placeholder="Enter value..">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-sm btn-primary px-3" onclick="@(Model.GridJsVar).numberFilter.submit('@column.Id')">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (column.Type == ColumnType.Date)
+    {
+        <div id="@(Model.GridId)_DateFilterModal-@(column.Id)" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div>
+                            <span class="text-primary fw-bold">@column.Name</span>
+                        </div>
+
+                    </div>
+                    <div class="modal-body">
+                        @{
+                            var startDateId = $"FromDateFilterInput-{column.Id}";
+                            var endDateId = $"ToDateFilterInput-{column.Id}";
+                        }
+                        <div class="row">
+                            <div class="col">
+                                <label class="form-label fw-bold" for="@startDateId" title="Required">From</label>
+                                <div class="input-group">
+                                    <input type="text" id="@startDateId" class="form-control init-datepicker" readonly="readonly" placeholder="From" value="" onchange="@(Model.GridJsVar).dateFilter.handleStartDate('@column.Id')">
+                                    <button class="btn btn-flat btn-sm btn-input-clear" type="button" style="display: none" onclick="clearDate(this);@(Model.GridJsVar).dateFilter.handleStartDate('@column.Id')">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                    <span class="input-group-text input-group-right"><i class="fa-regular fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label class="form-label fw-bold" for="@endDateId" title="Required">To</label>
+                                <div class="input-group">
+                                    <input type="text" id="@endDateId" class="form-control init-datepicker" readonly="readonly" placeholder="To" value="">
+                                    <button class="btn btn-flat btn-sm btn-input-clear" type="button" style="display: none" onclick="clearDate(this)">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                    <span class="input-group-text input-group-right"><i class="fa-regular fa-calendar"></i></span>
+                                </div>
+                            </div>
+                             
+                          
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-sm btn-primary px-3" onclick="@(Model.GridJsVar).dateFilter.submit('@column.Id')">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,27 @@
+﻿@using Actris.Abstraction.Model.View;
+@model Field
+
+
+
+@if (Model.IsDisabled)
+{
+    <input class="form-select select-lookup"
+           readonly
+           type="text"
+           value="@Model.Value"
+           placeholder="@Model.Label"
+           disabled>
+
+}
+else
+{
+    <input class="form-select select-lookup"
+           onclick="showLookupModal(this, '@Model.LookUpController', '@Model.LookUpOrderBy')"
+           style="cursor:pointer"
+           readonly
+           type="text"
+           value="@Model.Value"
+           placeholder="@Model.Label">
+}
+
+

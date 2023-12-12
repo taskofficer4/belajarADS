@@ -1,0 +1,16 @@
+﻿@using Actris.Abstraction.Model.View
+@model CrudPage
+
+@{
+    ViewBag.Title = "Overdue Impact";
+    Model.Title = "Overdue Impact";
+    Model.GridParam.FilterList.OrderBy = "CorrectiveActionOverdueImpactID asc";
+}
+
+@Html.Partial("Component/CrudPage/Crud", Model)
+
+@Styles.Render("~/Styles/GridList.css")
+
+@section scripts {
+    @Html.Partial("Component/CrudPage/CrudScript", Model)
+}

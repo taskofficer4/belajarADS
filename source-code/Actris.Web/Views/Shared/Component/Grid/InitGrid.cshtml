@@ -1,0 +1,14 @@
+﻿@using Actris.Abstraction.Model.View
+@using Newtonsoft.Json
+@model  Actris.Abstraction.Model.View.GridParam
+
+@{
+    Model.FilterList.GridId = Model.GridId;
+}
+
+<div id="@Model.GridId" class="gridlist">
+    @{
+        Html.RenderAction("GridList", Model.FilterList);
+    }
+</div>
+@Html.Partial("Component/Grid/AdaptiveFilter/_InitModal", Model)

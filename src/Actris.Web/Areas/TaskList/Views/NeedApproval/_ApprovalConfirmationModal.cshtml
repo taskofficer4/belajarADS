@@ -1,0 +1,40 @@
+﻿<div id="ApprovalConfirmationModal" class="modal fade" data-bs-backdrop="static" tabindex="-1">
+	<div class="modal-dialog modal-lg  modal-dialog-scrollable  modal-dialog-centered modal-dialog-expand-animation">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Are you sure to submit <span></span>?</h5>
+				<div class="d-flex align-items-center">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="append-here">
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" style="width:100px">Cancel</button>
+				<button type="submit" class="btn btn-primary btn-will-loading" onclick="onSubmitClick()" style="width:100px">Submit</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<template id='templateRejectRow'>
+	<div class="mb-3 d-flex">
+		<div class="flex-shrink-0" style="width: 230px;padding-top: 7px;">
+			<span class="caId"></span><div class="approvalAction badge bg-danger ms-2" style="width: 65px;"></div>
+		</div>
+		<div class="remark text-area-view-only" style="flex-grow: 1;"><span class="text-muted">No remark</span></div>
+	</div>
+</template>
+
+<template id='templateApproveRow'>
+	<div class="mb-3 d-flex">
+		<div class="flex-shrink-0" style="width: 230px;padding-top: 7px;">
+			<span class="caId"></span><div class="approvalAction badge bg-success ms-2" style="width: 65px;"></div>
+		</div>
+		<div class="remark text-area-view-only" style="flex-grow: 1;"><span class="text-muted">No remark</span></div>
+	</div>
+</template>

@@ -1,0 +1,22 @@
+﻿@using Actris.Abstraction.Model.View
+@model CrudPage
+
+@{
+    ViewBag.Title = "Action Tracking Report";
+    Model.Title = "Action Tracking Report";
+    Model.GridParam.FilterList.OrderBy = "CreatedAt desc";
+}
+
+<div class="header-page">
+    @Model.Title
+</div>
+
+@{Html.RenderAction("InitGrid", Model.GridParam);}
+
+@Styles.Render("~/Styles/GridList.css")
+
+@section scripts {
+    @Html.Partial("Component/CrudPage/CrudScript", Model)
+    <script src="~/Scripts/Page/ActionTrackingReport.js"></script>
+ 
+}

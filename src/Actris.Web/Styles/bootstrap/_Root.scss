@@ -1,0 +1,28 @@
+﻿:root {
+    --bs-primary: #006ab7;
+    --bs-secondary: #6c757d;
+    --bs-warning-rgb: 250, 140, 22;
+    --bs-body-color: #616161;
+   
+}
+
+
+.pagination {
+    --bs-pagination-active-bg: #006ab7;
+    --bs-pagination-active-border-color: #006ab7;
+    --bs-pagination-color: #006ab7;
+    --bs-pagination-disabled-color: #a3a3a3;
+    --bs-pagination-disabled-bg: #d4d4d4;
+}
+
+.page-link{
+
+}
+
+.fs-small{
+    font-size:11px;
+}
+
+.bg-system-error {
+    background-color: var(--system-error-10) !important;
+}

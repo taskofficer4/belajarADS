@@ -1,0 +1,114 @@
+﻿@using System.Diagnostics
+@using Actris.Abstraction.Model.Response
+@model User
+@{
+   string currentControllerName = Request.Url.AbsolutePath;
+   currentControllerName = currentControllerName.ToLower();
+
+   var rootName = new[] { "PHE_HSSE_DEV", "phe_actris_bypasslogin" };
+   if (currentControllerName == "/" ||
+       currentControllerName == "/phe_hsse_dev/" ||
+       currentControllerName == "/phe_hsse_dev" ||
+       currentControllerName == "phe_hsse_dev")
+   {
+      currentControllerName = "/home";
+   }
+
+   if (currentControllerName.Contains("tasklist"))
+   {
+      currentControllerName = "tasklist/needaction";
+   }
+}
+
+
+<ul class="navigation navigation-main navigation-accordion">
+    @if (Model != null && Model.UserMenu?.Count > 0)
+    {
+        for (int i = 0; i < Model.UserMenu.Count; i++)
+        {
+            var menu = Model.UserMenu[i];
+            if (menu.Child?.Count > 0)
+            {
+                <li class="has-sub">
+                    <a href="javascript:;" class="has-ul">
+                        <div class="icon-part">
+                            <i class="@menu.Icon"></i>
+                        </div>
+                        <span class="menu-name">@menu.Caption</span>
+                    </a>
+
+                    @{
+                        var hasChildActive = menu.Child.Any(o => o.Link.ToLower().Contains(currentControllerName) || (o.Area != null && currentControllerName.StartsWith(o.Area)));
+
+                        var styleHidden = "display: none;";
+                        if (hasChildActive)
+                        {
+                            styleHidden = "";
+                        }
+                    }
+                    <ul class="hidden-ul" style="@styleHidden">
+                        @foreach (var child in menu.Child)
+                        {
+                            var isActive = "";
+                            if (child.Link.ToLower().Contains(currentControllerName))
+                            {
+                                isActive = "active";
+                            }
+
+                            if (isActive == "" && child.Area != null && currentControllerName.StartsWith(child.Area))
+                            {
+                                isActive = "active";
+                            }
+                            else
+                            {
+                                if (currentControllerName.Contains(child.Link))
+                                {
+                                    isActive = "active";
+                                }
+                            }
+
+                            <li class="@isActive">
+
+
+                                <a href="@child.Link " data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="@child.Caption">
+                                    <div class="icon-part">
+                                        <i class="@child.Icon"></i>
+                                    </div>
+                                    <span class="menu-name"> @child.Caption</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                var isActive = "";
+
+                if (menu.Link.ToLower().Contains(currentControllerName))
+                {
+                    isActive = "active";
+
+                    if (isActive != "" && menu.Area != null && currentControllerName.StartsWith(menu.Area))
+                    {
+                        isActive = "active";
+                    }
+                }
+
+
+                <li class="@isActive">
+                    <a href="@menu.Link" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="@menu.Caption">
+                        <div class="icon-part">
+                            <i class="@menu.Icon"></i>
+                        </div>
+                        <span class="menu-name">@menu.Caption</span>
+                    </a>
+                </li>
+            }
+        }
+    }
+
+</ul>
+<div class="bottomleft">
+    <img src="~/Assets/bg bottom left corner.png" style="width:100%;height:100%;margin-left:-15px;margin-bottom:-15px;" />
+</div>

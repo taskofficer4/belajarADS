@@ -1,0 +1,16 @@
+﻿@using Actris.Abstraction.Model.View
+@model CrudPage
+
+@{
+    ViewBag.Title = "Impact Analysis - Master Data";
+    Model.Title = "Impact Analysis";
+    Model.GridParam.FilterList.OrderBy = "CorrectiveActionImpactAnalysisID asc";
+}
+
+@Html.Partial("Component/CrudPage/Crud", Model)
+
+@Styles.Render("~/Styles/GridList.css")
+
+@section scripts {
+    @Html.Partial("Component/CrudPage/CrudScript", Model)
+}

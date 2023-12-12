@@ -1,0 +1,80 @@
+﻿@using Actris.Abstraction.Model.Response
+@model User
+@{
+    string currentControllerName = Request.Url.AbsolutePath;
+}
+<ul class="navigation navigation-main navigation-accordion">
+    @if (Model != null && Model.UserMenu?.Count > 0)
+    {
+        for (int i = 0; i < Model.UserMenu.Count; i++)
+        {
+            var menu = Model.UserMenu[i];
+            if (menu.Child?.Count > 0)
+            {
+                <li class="has-sub">
+                    <a href="javascript:;" class="has-ul">
+                        <div class="icon-part">
+                            <i class="@menu.Icon layout-icon-color"></i>
+                        </div>
+                        <span>@menu.Caption</span>
+                    </a>
+
+                    @{
+                        var hasChildActive = menu.Child.Any(o => o.Link == currentControllerName);
+
+                        var styleHidden = "display: none;";
+                        if (hasChildActive)
+                        {
+                            styleHidden = "";
+                        }
+                    }
+                    <ul class="hidden-ul" style="@styleHidden">
+                        @foreach (var child in menu.Child)
+                        {
+                            var isActive = "";
+                            if (currentControllerName == child.Link)
+                            {
+                                isActive = "active";
+                            }
+
+                            <li class="@isActive">
+
+
+                                <a href="@child.Link " data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="@child.Caption">
+                                    <div class="icon-part">
+                                        <i class="@menu.Icon layout-icon-color"></i>
+                                    </div>
+                                    <span>@child.Caption</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+
+                </li>
+                
+            }
+
+            else
+            {
+                var isActive = "";
+                if (currentControllerName == menu.Link)
+                {
+                    isActive = "active";
+                }
+
+                <li class="@isActive">
+                    <a href="@menu.Link" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="@menu.Caption">
+                        <div class="icon-part">
+                            <i class="@menu.Icon layout-icon-color"></i>
+                        </div>
+                        <span>@menu.Caption</span>
+                    </a>
+                </li>
+            }
+        }
+    }
+
+</ul>
+<div class="bottomleft">
+    <img src="~/Assets/bg bottom left corner.png" style="width:100%;height:100%;margin-left:-15px;margin-bottom:-15px;" />
+</div>

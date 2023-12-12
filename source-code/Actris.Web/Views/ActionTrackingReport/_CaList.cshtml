@@ -1,0 +1,49 @@
+﻿@using Actris.Abstraction.Model.Dto
+@using Newtonsoft.Json
+@model List<CorrectiveActionDto>
+
+<div class="" style="min-height:0">
+    <div class="table-responsive" style="min-height:0">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="valign-mid">CA ID</th>
+                    <th class="valign-mid">Department</th>
+                    <th class="valign-mid">Recomendation</th>
+                    <th class="valign-mid">PIC</th>
+                    <th class="valign-mid">Priority Level</th>
+                    <th class="valign-mid">Pending Action</th>
+                    <th class="valign-mid">Status</th>
+                   
+                </tr>
+
+            </thead>
+            <tr>
+
+
+                @foreach (var ca in Model)
+                {
+                    <td>@ca.CorrectiveActionReference</td>
+                    <td>@ca.ResponsibleDepartment</td>
+                    <td>@ca.Recomendation</td>
+                    <td>@ca.Pic1</td>
+                    <td>@ca.CorrectiveActionPriorityID</td>
+                    <td></td>
+                    <td>@ca.Status</td>
+                }
+
+
+            </tr>
+
+        </table>
+    </div>
+
+    @if (Model.Any() == false)
+    {
+        <div class="text-center pt-1 mb-5">
+            <img src="~/Assets/Grid/empty-grid.jpg" style="width:250px;margin-top:20px" />
+            <div class="text-muted mt-2">No Result were found</div>
+        </div>
+    }
+
+</div>

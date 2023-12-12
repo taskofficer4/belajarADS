@@ -1,0 +1,67 @@
+﻿@using System;
+@using Actris.Abstraction.Helper;
+@using System.Collections.Generic;
+
+@model List<Actris.Abstraction.Model.Dto.FileAttachmentDto>
+
+@{
+   int countInfo = 0;
+   string projectPhase = ViewBag.ProjectPhase;
+   if (Model != null)
+   {
+      countInfo = Model.Count();
+   }
+}
+
+<div class="card mb-3">
+   <div class="card-header fw-bold">
+      <h5 class="mb-0"> <i class="fa-solid fa-paperclip me-1"></i>  Attachments (@countInfo)</h5>
+
+   </div>
+   <div class="card-body overflow-hidden p-0 attachment-section">
+      @if (countInfo > 0)
+      {
+         <table class="table m-0 table-px">
+            <tr>
+               <th>File Name</th>
+               <th>Description</th>
+               <th style="width:100px">Size</th>
+               <th style="width:10px"></th>
+            </tr>
+
+            @for (var i = 0; i < Model?.Count(); i++)
+            {
+               var item = Model[i];
+
+               <tr class="attachment-row">
+                  <td>
+                     <a class="link-primary" href="@item.FileUrl" target="_blank">
+                        @item.FileName
+                     </a>
+                  </td>
+                  <td>
+                     @if (string.IsNullOrEmpty(item.FileDescription))
+                     {
+                        <span>-</span>
+                     }
+                     else
+                     {
+                        <span>@item.FileDescription</span>
+                     }
+                  </td>
+                  <td>@(item.FileSize?.ToPrettySize())</td>
+                  <td>
+                     <a title="Download" href="@item.FileUrl" download><i class="fa-solid fa-download"></i></a>
+                  </td>
+               </tr>
+            }
+
+         </table>
+
+      }
+      @if (countInfo == 0)
+      {
+         <div class="text-center py-5 text-muted">No Attachments Added</div>
+      }
+   </div>
+</div>
